@@ -74,7 +74,7 @@ export async function POST(_req: NextRequest, { params }: { params: Promise<{ id
       baseExposureScore = Math.min(100, Math.max(10, baseExposureScore));
     }
 
-    // 3. Contact Gemini 2.0 Flash for structured compliance report
+    // 3. Contact Gemini 2.5 Flash Lite for structured compliance report
     let aiReport: {
       exposure_score: number;
       risk_score: string;
@@ -106,15 +106,15 @@ Please perform a compliance risk assessment. You must return a valid JSON object
   "exposure_score": number, // Calculate or refine the exposure score (0-100) based on sensitivity (Financial, KYC, Aadhaar data is high exposure).
   "risk_score": "Low" | "Medium" | "High", // Risk level based on the type of data and number of processors.
   "data_categories": string[], // List of data categories present, e.g., ["Financial", "Identity", "Location", "Employment"]
-  "compliance_insights": string, // Bulleted points explaining legal obligations under the DPDP Act 2023 for this request.
-  "dpdp_recommendations": string, // Actionable steps for the DPO to fulfill this request.
-  "ai_summary": string // A concise, customer-friendly 2-3 sentence summary explaining what data was found and what action is being taken.
+  "compliance_insights": string, // Bulleted points explaining legal obligations. Keep it extremely concise (max 2 short bullets, max 30 words total).
+  "dpdp_recommendations": string, // Actionable steps for the DPO. Keep it extremely concise (max 2 short steps, max 30 words total).
+  "ai_summary": string // A concise, customer-friendly 1-2 sentence summary explaining what data was found (max 30 words).
 }
 
-Do not include any markdown formatting (like \`\`\`json) in your response. Return ONLY the raw JSON string.`;
+CRITICAL: The entire JSON response MUST be very short and fit within 400 tokens to prevent truncation. Keep all text fields extremely brief and minimal. Do not include any markdown formatting (like \`\`\`json) in your response. Return ONLY the raw JSON string.`;
 
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${geminiKey}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -122,7 +122,8 @@ Do not include any markdown formatting (like \`\`\`json) in your response. Retur
             contents: [{ parts: [{ text: prompt }] }],
             generationConfig: {
               responseMimeType: "application/json",
-              maxOutputTokens: 1000
+              maxOutputTokens: 512,
+              temperature: 0.3
             },
           }),
         }
@@ -147,6 +148,8 @@ Do not include any markdown formatting (like \`\`\`json) in your response. Retur
           ai_summary: parsed.ai_summary ?? "",
         };
       } else {
+        const errBody = await res.text().catch(() => "");
+        console.error("Gemini API error body:", errBody);
         throw new Error("AI API non-OK response status " + res.status);
       }
     } catch (err) {

@@ -41,13 +41,16 @@ Request Details:
 Write a short, clear, friendly 2-3 sentence update message addressed to the citizen explaining what this status change means for their request and what they can expect next. Use plain language, no jargon. Do not include any headings or labels, just the message text.`;
 
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${geminiKey}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { maxOutputTokens: 200 },
+            generationConfig: {
+              maxOutputTokens: 512,
+              temperature: 0.3,
+            },
           }),
         }
       );

@@ -32,13 +32,16 @@ export async function generateAndSaveStatusNote(
     const prompt = `You are a Data Protection Officer assistant for a privacy compliance platform under India's DPDP Act 2023.\n\nA DSAR status has been automatically updated.\n\n- Citizen: ${userName}\n- Request Type: ${requestType.toUpperCase()}\n- Previous Status: ${prevLabel}\n- New Status: ${newLabel}\n\nWrite a short, clear, friendly 2-3 sentence update message to the citizen explaining what this status change means and what to expect next. Plain language only, no headings or labels.`;
 
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${geminiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { maxOutputTokens: 200 },
+          generationConfig: {
+            maxOutputTokens: 512,
+            temperature: 0.3,
+          },
         }),
       }
     );
