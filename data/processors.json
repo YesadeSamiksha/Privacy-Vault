@@ -1,0 +1,284 @@
+[
+  {
+    "id": "payfast-india",
+    "name": "PayFast India",
+    "type": "Payment Processor",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "account_id": "PF-MH-00788",
+        "full_name": "Arjun Mehta",
+        "phone": "+91 91234 56789",
+        "upi_id": "arjun.mehta@oksbi",
+        "linked_bank": "State Bank of India, Mumbai Branch",
+        "transactions": [
+          {
+            "id": "TXN-20240205",
+            "amount": "₹2,300",
+            "merchant": "Amazon",
+            "date": "2024-02-05",
+            "status": "success"
+          },
+          {
+            "id": "TXN-20240320",
+            "amount": "₹7,600",
+            "merchant": "Flipkart",
+            "date": "2024-03-20",
+            "status": "success"
+          }
+        ],
+        "kyc_status": "verified",
+        "registered_on": "2021-11-03"
+      },
+      "neha.kulkarni@yahoo.co.in": {
+        "account_id": "PF-MH-01134",
+        "full_name": "Neha Kulkarni",
+        "phone": "+91 87654 32109",
+        "upi_id": "neha.kulkarni@okhdfcbank",
+        "linked_bank": "HDFC Bank, Nashik Branch",
+        "transactions": [
+          {
+            "id": "TXN-20240112",
+            "amount": "₹15,000",
+            "merchant": "Apple Store",
+            "date": "2024-01-12",
+            "status": "success"
+          }
+        ],
+        "kyc_status": "pending",
+        "registered_on": "2023-03-22"
+      },
+      "rahul.desai@protonmail.com": {
+        "account_id": "PF-MH-01562",
+        "full_name": "Rahul Desai",
+        "phone": "+91 70000 11223",
+        "upi_id": "rahul.desai@okaxis",
+        "linked_bank": "Axis Bank, Nagpur Branch",
+        "transactions": [
+          {
+            "id": "TXN-20240418",
+            "amount": "₹3,200",
+            "merchant": "Zomato",
+            "date": "2024-04-18",
+            "status": "success"
+          },
+          {
+            "id": "TXN-20240501",
+            "amount": "₹9,999",
+            "merchant": "Nykaa",
+            "date": "2024-05-01",
+            "status": "success"
+          }
+        ],
+        "kyc_status": "verified",
+        "registered_on": "2023-07-10"
+      }
+    }
+  },
+  {
+    "id": "salescrm-india",
+    "name": "SalesCRM India",
+    "type": "CRM System",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "crm_id": "CRM-2024-00091",
+        "full_name": "Arjun Mehta",
+        "email": "arjun.mehta@outlook.com",
+        "phone": "+91 91234 56789",
+        "address": "Flat 4B, Shree Apartments, Andheri West, Mumbai, Maharashtra 400058",
+        "lead_source": "Trade Show – BizExpo 2023",
+        "deal_stage": "Proposal Sent",
+        "deal_value": "₹3,50,000",
+        "last_contact": "2024-03-18",
+        "assigned_rep": "Vikram Iyer",
+        "notes": "Interested in enterprise plan. Follow up after Q1 board meeting.",
+        "tags": [
+          "enterprise",
+          "hot-lead",
+          "Maharashtra"
+        ]
+      }
+    }
+  },
+  {
+    "id": "peoplehr",
+    "name": "PeopleHR",
+    "type": "HR System",
+    "records": {
+      "neha.kulkarni@yahoo.co.in": {
+        "employee_id": "EMP-MH-4491",
+        "full_name": "Neha Kulkarni",
+        "email": "neha.kulkarni@yahoo.co.in",
+        "phone": "+91 87654 32109",
+        "date_of_birth": "1992-06-18",
+        "date_of_joining": "2019-04-01",
+        "designation": "Senior Software Engineer",
+        "department": "Engineering",
+        "location": "Pune, Maharashtra",
+        "salary": "₹18,50,000 per annum",
+        "pan_number": "ABCPK1234F",
+        "aadhar_masked": "XXXX-XXXX-6712",
+        "employment_status": "Active",
+        "manager": "Rohan Joshi"
+      },
+      "rahul.desai@protonmail.com": {
+        "employee_id": "EMP-MH-5812",
+        "full_name": "Rahul Desai",
+        "email": "rahul.desai@protonmail.com",
+        "phone": "+91 70000 11223",
+        "date_of_birth": "1988-11-25",
+        "date_of_joining": "2021-07-15",
+        "designation": "Product Manager",
+        "department": "Product",
+        "location": "Nagpur, Maharashtra",
+        "salary": "₹24,00,000 per annum",
+        "pan_number": "EFGRD5678H",
+        "aadhar_masked": "XXXX-XXXX-3301",
+        "employment_status": "Active",
+        "manager": "Anjali Nair"
+      },
+      "suresh.joshi@rediffmail.com": {
+        "employee_id": "EMP-MH-3307",
+        "full_name": "Suresh Joshi",
+        "email": "suresh.joshi@rediffmail.com",
+        "phone": "+91 82345 67890",
+        "date_of_birth": "1985-03-12",
+        "date_of_joining": "2017-01-10",
+        "designation": "Finance Manager",
+        "department": "Finance",
+        "location": "Thane, Maharashtra",
+        "salary": "₹22,00,000 per annum",
+        "pan_number": "HIJSJ9012K",
+        "aadhar_masked": "XXXX-XXXX-8844",
+        "employment_status": "Active",
+        "manager": "Priya Kapoor"
+      },
+      "arjun.mehta@outlook.com": {
+        "employee_id": "EMP-MH-6120",
+        "full_name": "Arjun Mehta",
+        "email": "arjun.mehta@outlook.com",
+        "phone": "+91 91234 56789",
+        "date_of_birth": "1991-09-05",
+        "date_of_joining": "2020-03-01",
+        "designation": "Sales Manager",
+        "department": "Sales",
+        "location": "Mumbai, Maharashtra",
+        "salary": "₹20,50,000 per annum",
+        "pan_number": "KLMAM3456L",
+        "aadhar_masked": "XXXX-XXXX-2255",
+        "employment_status": "Active",
+        "manager": "Deepak Sharma"
+      }
+    }
+  },
+  {
+    "id": "targetpulse",
+    "name": "TargetPulse",
+    "type": "Marketing Platform",
+    "records": {
+      "kavi26@gmail.com": {
+        "contact_id": "TP-C-77603",
+        "full_name": "kavi",
+        "email": "kavi26@gmail.com",
+        "phone": "+91 93456 78901",
+        "segments": [
+          "Women 35-50",
+          "Health & Wellness"
+        ],
+        "email_consent": false,
+        "sms_consent": true,
+        "whatsapp_consent": true,
+        "last_campaign_opened": null,
+        "open_rate": "12%",
+        "click_rate": "3%",
+        "unsubscribed": true,
+        "city": "Nashik",
+        "language": "Hindi"
+      }
+    }
+  },
+  {
+    "id": "quickdeliver",
+    "name": "QuickDeliver",
+    "type": "Delivery Partner",
+    "records": {
+      "neha.kulkarni@yahoo.co.in": {
+        "customer_id": "QD-PUN-7891",
+        "full_name": "Neha Kulkarni",
+        "phone": "+91 87654 32109",
+        "saved_addresses": [
+          {
+            "label": "Home",
+            "address": "Flat 8, Greenwood Society, Nashik Road, Nashik, Maharashtra 422101"
+          }
+        ],
+        "total_deliveries": 23,
+        "last_delivery": {
+          "order_id": "QD-ORD-20240308",
+          "from": "FreshMart Superstore, Nashik",
+          "to": "Flat 8, Greenwood Society, Nashik",
+          "date": "2024-03-08",
+          "status": "Delivered",
+          "amount_paid": "₹1,150"
+        },
+        "preferred_payment": "Credit Card",
+        "member_since": "2022-05-14"
+      },
+      "suresh.joshi@rediffmail.com": {
+        "customer_id": "QD-THA-4422",
+        "full_name": "Suresh Joshi",
+        "phone": "+91 82345 67890",
+        "saved_addresses": [
+          {
+            "label": "Home",
+            "address": "C-4, Shanti CHS, Ghodbunder Road, Thane West, Maharashtra 400615"
+          }
+        ],
+        "total_deliveries": 11,
+        "last_delivery": {
+          "order_id": "QD-ORD-20240110",
+          "from": "Domino's, Thane",
+          "to": "C-4, Shanti CHS, Thane",
+          "date": "2024-01-10",
+          "status": "Delivered",
+          "amount_paid": "₹540"
+        },
+        "preferred_payment": "Cash on Delivery",
+        "member_since": "2023-01-20"
+      }
+    }
+  },
+  {
+    "id": "insightmetrics",
+    "name": "InsightMetrics",
+    "type": "Analytics Tool",
+    "records": {
+      "kavi26@gmail.com": {
+        "user_id": "IM-U-91D2C3",
+        "email": "kavi26@gmail.com",
+        "first_seen": "2023-09-01",
+        "last_seen": "2024-02-18",
+        "total_sessions": 44,
+        "avg_session_duration": "3m 02s",
+        "most_visited_pages": [
+          "/health",
+          "/orders"
+        ],
+        "device": "Redmi Note 12, Android 12",
+        "browser": "Chrome 120",
+        "ip_country": "India",
+        "ip_city": "Nashik",
+        "events": [
+          {
+            "event": "purchase_completed",
+            "count": 3
+          },
+          {
+            "event": "product_view",
+            "count": 89
+          }
+        ],
+        "full_name": "kavi"
+      }
+    }
+  }
+]

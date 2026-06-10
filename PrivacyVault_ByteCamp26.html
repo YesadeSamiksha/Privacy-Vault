@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrivacyVault – ByteCamp '26</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b3e;
+    --navy2: #0a1530;
+    --navy3: #081228;
+    --blue-mid: #1a2f6e;
+    --blue-light: #2a4db5;
+    --cyan: #00e5c0;
+    --cyan2: #00c9a7;
+    --red: #ff4d4d;
+    --white: #ffffff;
+    --silver: #c5d3f0;
+    --gold: #f5c842;
+    --green: #00d26a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: #000;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  /* Slide container */
+  .deck {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    background: var(--navy);
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  /* ===================== SHARED BG ===================== */
+  .bg-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .bg-layer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(26,47,110,0.6) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(42,77,181,0.3) 0%, transparent 50%);
+  }
+
+  /* City skyline SVG background (drawn with CSS) */
+  .skyline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35%;
+    z-index: 1;
+    opacity: 0.12;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 200' preserveAspectRatio='xMidYMax meet'%3E%3Cpath fill='%234a6abf' d='M0 200 L0 120 L30 120 L30 80 L50 80 L50 60 L70 60 L70 80 L90 80 L90 120 L120 120 L120 50 L140 50 L140 30 L145 10 L150 30 L155 50 L160 50 L160 120 L190 120 L190 90 L210 90 L210 70 L230 70 L230 90 L250 90 L250 120 L280 120 L280 60 L300 60 L300 40 L320 40 L320 60 L340 60 L340 120 L370 120 L370 80 L400 80 L400 55 L420 55 L420 35 L440 35 L440 55 L460 55 L460 80 L490 80 L490 120 L520 120 L520 70 L550 70 L550 50 L570 50 L570 20 L575 5 L580 20 L585 50 L610 50 L610 70 L640 70 L640 120 L670 120 L670 85 L700 85 L700 65 L720 65 L720 45 L740 45 L740 65 L760 65 L760 85 L790 85 L790 120 L820 120 L820 55 L850 55 L850 35 L870 35 L870 55 L890 55 L890 120 L920 120 L920 80 L950 80 L950 60 L970 60 L970 40 L990 40 L990 60 L1010 60 L1010 80 L1040 80 L1040 120 L1070 120 L1070 70 L1100 70 L1100 50 L1120 50 L1120 70 L1150 70 L1150 120 L1180 120 L1180 85 L1210 85 L1210 65 L1230 65 L1230 45 L1250 45 L1250 65 L1270 65 L1270 85 L1300 85 L1300 120 L1350 120 L1350 70 L1370 70 L1370 50 L1390 50 L1390 70 L1400 70 L1400 200 Z'/%3E%3C/svg%3E") no-repeat bottom center;
+    background-size: cover;
+  }
+
+  /* Circuit pattern */
+  .circuit {
+    position: absolute;
+    left: -50px;
+    bottom: 50px;
+    width: 300px;
+    height: 300px;
+    opacity: 0.08;
+    z-index: 1;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%2300e5c0' stroke-width='2'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%2300e5c0' stroke-width='1'/%3E%3Ccircle cx='100' cy='100' r='50' fill='none' stroke='%2300e5c0' stroke-width='1'/%3E%3Cline x1='10' y1='100' x2='190' y2='100' stroke='%2300e5c0' stroke-width='1'/%3E%3Cline x1='100' y1='10' x2='100' y2='190' stroke='%2300e5c0' stroke-width='1'/%3E%3Ccircle cx='100' cy='10' r='4' fill='%2300e5c0'/%3E%3Ccircle cx='100' cy='190' r='4' fill='%2300e5c0'/%3E%3Ccircle cx='10' cy='100' r='4' fill='%2300e5c0'/%3E%3Ccircle cx='190' cy='100' r='4' fill='%2300e5c0'/%3E%3C/svg%3E") no-repeat center;
+    background-size: contain;
+  }
+
+  /* ===================== TOP BAR ===================== */
+  .topbar {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 36px;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .tent-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .slide-title-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slide-section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .slide-section-sub {
+    font-size: 13px;
+    color: var(--silver);
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .circuit-badge {
+    width: 56px;
+    height: 56px;
+    opacity: 0.85;
+  }
+
+  /* ===================== CONTENT AREA ===================== */
+  .content {
+    position: relative;
+    z-index: 10;
+    flex: 1;
+    padding: 0 44px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===================== SLIDE 1 – TITLE ===================== */
+  #s1 {
+    background: linear-gradient(135deg, #061022 0%, #0d1b3e 40%, #112255 100%);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #s1 .bg-layer::before {
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(42,77,181,0.4) 0%, transparent 60%),
+      radial-gradient(ellipse at 10% 80%, rgba(0,229,192,0.1) 0%, transparent 40%),
+      radial-gradient(ellipse at 90% 80%, rgba(0,229,192,0.1) 0%, transparent 40%);
+  }
+
+  .title-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0,229,192,0.12);
+    border: 1px solid rgba(0,229,192,0.3);
+    border-radius: 40px;
+    padding: 7px 22px;
+    margin-bottom: 28px;
+  }
+  .title-badge span {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .title-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  .main-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(72px, 10vw, 120px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+  }
+  .main-title span { color: var(--cyan); }
+
+  .main-subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--silver);
+    max-width: 640px;
+    line-height: 1.6;
+    margin: 20px auto 36px;
+    letter-spacing: 0.5px;
+  }
+
+  .team-grid {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .member-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 40px;
+    padding: 8px 18px;
+  }
+  .member-chip .avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--navy);
+  }
+  .member-chip .name { font-size: 14px; font-weight: 600; color: var(--white); }
+
+  .meta-row {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--silver);
+  }
+  .meta-item strong { color: var(--cyan); font-weight: 700; }
+
+  /* lock icon big */
+  .lock-bg {
+    position: absolute;
+    right: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.04;
+    font-size: 280px;
+    z-index: 1;
+  }
+
+  /* ===================== SLIDE 2 – PROBLEM ===================== */
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,229,192,0.1);
+    border-left: 3px solid var(--cyan);
+    padding: 5px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 6px;
+  }
+
+  .content-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  /* Two column */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    flex: 1;
+  }
+
+  .problem-intro {
+    font-size: 14px;
+    color: var(--silver);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .challenge-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .challenge-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+  .challenge-list li .icon-circle {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+  }
+
+  /* Right panel: visual cards */
+  .visual-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .penalty-badge {
+    background: linear-gradient(135deg, rgba(255,77,77,0.2), rgba(255,77,77,0.05));
+    border: 1px solid rgba(255,77,77,0.4);
+    border-radius: 12px;
+    padding: 18px 22px;
+    text-align: center;
+  }
+  .penalty-badge .amount {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+  }
+  .penalty-badge .label {
+    font-size: 12px;
+    color: rgba(255,77,77,0.7);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 4px;
+  }
+
+  .data-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .data-card .dc-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .data-card .dc-body {
+    font-size: 12px;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+
+  /* ===================== SLIDE 3 – SOLUTION ===================== */
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 20px;
+    flex: 1;
+    overflow: hidden;
+  }
+  .feature-list { overflow-y: auto; }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+  .feature-list li .fi { flex-shrink: 0; font-size: 18px; }
+  .feature-list li strong { color: var(--white); font-weight: 700; display: block; font-size: 13px; }
+
+  .flow-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+  }
+  .flow-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px;
+    color: var(--white);
+    font-weight: 600;
+  }
+  .flow-step .step-num {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--blue-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+  .flow-arrow {
+    text-align: center;
+    color: var(--cyan);
+    font-size: 14px;
+    padding: 2px 0;
+  }
+
+  .differentiator {
+    background: linear-gradient(135deg, rgba(0,229,192,0.12), rgba(0,229,192,0.03));
+    border: 1px solid rgba(0,229,192,0.3);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 6px;
+  }
+  .differentiator .diff-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .differentiator .diff-body {
+    font-size: 12px;
+    color: var(--silver);
+    line-height: 1.6;
+  }
+
+  /* ===================== SLIDE 4 – TECH STACK ===================== */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    flex: 1;
+    align-content: start;
+  }
+
+  .tech-category {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .tech-category.full-width { grid-column: span 2; }
+
+  .tc-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .tc-icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+  }
+  .tc-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .tech-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .tech-item .ti-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .tech-item .ti-desc {
+    font-size: 11px;
+    color: var(--silver);
+  }
+
+  /* ===================== SLIDE 5 – BUSINESS VALUE ===================== */
+  .bv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    flex: 1;
+  }
+
+  .stat-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .stat-card {
+    background: rgba(0,229,192,0.07);
+    border: 1px solid rgba(0,229,192,0.2);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+  .stat-card .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--cyan);
+    line-height: 1;
+  }
+  .stat-card .stat-label {
+    font-size: 11px;
+    color: var(--silver);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  .usp-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .usp-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--silver);
+    line-height: 1.5;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    border-left: 3px solid var(--cyan);
+  }
+  .usp-list li strong { color: var(--white); }
+
+  .before-after {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-top: 6px;
+  }
+  .ba-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .ba-header div {
+    padding: 8px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .ba-header .before-h { background: rgba(255,77,77,0.2); color: var(--red); }
+  .ba-header .after-h { background: rgba(0,210,106,0.2); color: var(--green); }
+
+  .ba-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+  .ba-row div {
+    padding: 8px 12px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .ba-row .before-v { color: rgba(255,77,77,0.8); background: rgba(255,77,77,0.04); }
+  .ba-row .after-v { color: rgba(0,210,106,0.9); background: rgba(0,210,106,0.04); }
+
+  /* ===================== SLIDE 6 – FUTURE SCOPE ===================== */
+  .timeline-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .timeline-phase {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .phase-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 12px;
+    border-radius: 12px 0 0 12px;
+    text-align: center;
+    gap: 4px;
+  }
+  .phase-label .phase-time {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+  .phase-label .phase-sub {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .phase-short { background: rgba(0,229,192,0.2); }
+  .phase-short .phase-sub { color: var(--cyan); }
+  .phase-short .phase-time { color: var(--cyan); }
+
+  .phase-medium { background: rgba(245,200,66,0.15); }
+  .phase-medium .phase-sub { color: var(--gold); }
+  .phase-medium .phase-time { color: var(--gold); }
+
+  .phase-long { background: rgba(42,77,181,0.3); }
+  .phase-long .phase-sub { color: #7a9fff; }
+  .phase-long .phase-time { color: #7a9fff; }
+
+  .phase-items {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-left: none;
+    border-radius: 0 12px 12px 0;
+    padding: 14px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-content: center;
+  }
+  .phase-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .pt-cyan { background: rgba(0,229,192,0.12); border: 1px solid rgba(0,229,192,0.25); }
+  .pt-gold { background: rgba(245,200,66,0.12); border: 1px solid rgba(245,200,66,0.25); }
+  .pt-blue { background: rgba(42,77,181,0.25); border: 1px solid rgba(100,140,255,0.3); }
+
+  /* ===================== SLIDE 7 – THANK YOU ===================== */
+  #s7 {
+    background: linear-gradient(135deg, #061022 0%, #0d1b3e 50%, #081228 100%);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .ty-ring {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 3px solid rgba(0,229,192,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    position: relative;
+  }
+  .ty-ring::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,229,192,0.15);
+  }
+  .ty-ring .lock-icon { font-size: 64px; }
+
+  .ty-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    line-height: 0.9;
+  }
+  .ty-title span { color: var(--cyan); }
+
+  .ty-sub {
+    font-size: 16px;
+    color: var(--silver);
+    margin: 16px auto 28px;
+    max-width: 500px;
+  }
+
+  .impact-chips {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .impact-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(0,229,192,0.08);
+    border: 1px solid rgba(0,229,192,0.25);
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .impact-chip .ic { color: var(--cyan); font-size: 16px; }
+
+  .contact-info {
+    font-size: 13px;
+    color: var(--silver);
+    opacity: 0.7;
+  }
+
+  /* ===================== NAVIGATION ===================== */
+  .nav {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 1000;
+    background: rgba(10,21,48,0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 40px;
+    padding: 10px 20px;
+  }
+  .nav button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--silver);
+    font-size: 18px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    transition: all 0.2s;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+  }
+  .nav button:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+  .nav button:disabled { opacity: 0.3; cursor: default; }
+
+  .slide-counter {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
+    min-width: 50px;
+    text-align: center;
+  }
+
+  .dots {
+    display: flex;
+    gap: 6px;
+  }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .dot.active { background: var(--cyan); width: 20px; border-radius: 4px; }
+
+  /* Keyboard hint */
+  .hint {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    z-index: 1000;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- ===== SLIDE 1: TEAM DETAILS ===== -->
+  <div class="slide active" id="s1">
+    <div class="bg-layer"></div>
+    <div class="skyline"></div>
+    <div class="lock-bg">🔐</div>
+
+    <div style="position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:40px;">
+      
+      <div class="title-badge">
+        <div class="dot"></div>
+        <span>ByteCamp '26 &nbsp;·&nbsp; March 2026 &nbsp;·&nbsp; Digital Privacy & Data Protection</span>
+      </div>
+
+      <div class="main-title">Privacy<span>Vault</span></div>
+      <div class="main-subtitle">
+        Unified Compliance Platform for the Digital Personal Data Protection Act (DPDP) — Empowering citizens, operationalizing accountability.
+      </div>
+
+      <div class="team-grid">
+        <div class="member-chip">
+          <div class="avatar" style="background:#00e5c0;">MG</div>
+          <span class="name">Mahek Gupta</span>
+        </div>
+        <div class="member-chip">
+          <div class="avatar" style="background:#2a4db5;">SJ</div>
+          <span class="name">Sujal Jadhav</span>
+        </div>
+        <div class="member-chip">
+          <div class="avatar" style="background:#f5c842;color:#0d1b3e;">SC</div>
+          <span class="name">Sujal Chalke</span>
+        </div>
+        <div class="member-chip">
+          <div class="avatar" style="background:#ff4d4d;">SY</div>
+          <span class="name">Samiksha Yesade</span>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <div class="meta-item">🏛️ <span>College Name, <strong>Mumbai, Maharashtra</strong></span></div>
+        <div class="meta-item">⚡ <span>Hackathon: <strong>ByteCamp '26</strong></span></div>
+        <div class="meta-item">🛡️ <span>Domain: <strong>Digital Privacy</strong></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 2: PROBLEM STATEMENT ===== -->
+  <div class="slide" id="s2">
+    <div class="bg-layer"></div>
+    <div class="skyline"></div>
+    <div class="circuit"></div>
+
+    <div class="topbar">
+      <div class="logo-area">
+        <svg class="tent-logo" viewBox="0 0 60 60" fill="none">
+          <path d="M30 5 L55 50 H5 Z" fill="#1a2f6e" stroke="#2a4db5" stroke-width="2"/>
+          <path d="M30 5 L42 50 H18 Z" fill="#2a4db5" opacity="0.6"/>
+          <text x="30" y="38" text-anchor="middle" font-size="9" fill="#00e5c0" font-family="monospace" font-weight="bold">10</text>
+          <text x="30" y="46" text-anchor="middle" font-size="9" fill="#00e5c0" font-family="monospace" font-weight="bold">01</text>
+        </svg>
+        <div class="slide-title-block">
+          <div class="slide-section-label">Selected Domain</div>
+          <div class="slide-section-sub">Problem Statement</div>
+        </div>
+      </div>
+      <svg class="circuit-badge" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="28" fill="none" stroke="#c5d3f0" stroke-width="2"/>
+        <circle cx="30" cy="30" r="20" fill="none" stroke="#c5d3f0" stroke-width="1"/>
+        <circle cx="30" cy="10" r="3" fill="#c5d3f0"/>
+        <circle cx="30" cy="50" r="3" fill="#c5d3f0"/>
+        <circle cx="10" cy="30" r="3" fill="#c5d3f0"/>
+        <circle cx="50" cy="30" r="3" fill="#c5d3f0"/>
+        <line x1="30" y1="13" x2="30" y2="47" stroke="#c5d3f0" stroke-width="1"/>
+        <line x1="13" y1="30" x2="47" y2="30" stroke="#c5d3f0" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <div class="content">
+      <div class="section-tag">Domain: Digital Privacy & Data Protection</div>
+      <div class="content-title">Problem Statement – DPDP Compliance Gap</div>
+
+      <div class="two-col">
+        <div>
+          <p class="problem-intro">
+            With the <strong style="color:var(--white)">Digital Personal Data Protection Act, 2023</strong> (Rules 2025 notified Nov 13, 2025), organizations must ensure <strong style="color:var(--cyan)">transparency, accountability,</strong> and <strong style="color:var(--cyan)">citizen control</strong> over personal data — yet most remain dangerously unprepared.
+          </p>
+          <ul class="challenge-list">
+            <li>
+              <span class="icon-circle" style="background:rgba(255,77,77,0.15);">⚠️</span>
+              <span>Personal data <strong style="color:var(--white)">scattered across disconnected systems</strong> — CRM, HR, analytics, Razorpay, delivery partners — with no unified view.</span>
+            </li>
+            <li>
+              <span class="icon-circle" style="background:rgba(255,77,77,0.15);">⏱️</span>
+              <span>No centralized way to track data or respond to <strong style="color:var(--white)">DSARs (Access, Correction, Erasure)</strong> within the mandatory 90-day window.</span>
+            </li>
+            <li>
+              <span class="icon-circle" style="background:rgba(255,77,77,0.15);">🔗</span>
+              <span><strong style="color:var(--white)">Third-party processors retain copies</strong> — deletion requests go untracked, creating invisible liability.</span>
+            </li>
+            <li>
+              <span class="icon-circle" style="background:rgba(255,77,77,0.15);">📋</span>
+              <span>Manual, Excel-based processes cause <strong style="color:var(--white)">delays, errors, and high penalty risk</strong> — especially for breach notification failures.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="visual-panel">
+          <div class="penalty-badge">
+            <div class="amount">₹250 Cr</div>
+            <div class="label">Maximum Penalty Under DPDP Act</div>
+          </div>
+          <div class="data-card">
+            <div class="dc-title">📊 90-Day DSAR Window</div>
+            <div class="dc-body">Organizations must respond to Access, Correction & Erasure requests within 90 days or face penalties. No current system tracks this automatically.</div>
+          </div>
+          <div class="data-card">
+            <div class="dc-title">🌐 Fragmented Data Ecosystem</div>
+            <div class="dc-body">Average organization uses 5–12 third-party processors. Each holds personal data. None are coordinated for deletion propagation.</div>
+          </div>
+          <div class="data-card" style="border-color:rgba(245,200,66,0.3);">
+            <div class="dc-title" style="color:var(--gold);">⚡ Nov 13, 2025 — Rules Notified</div>
+            <div class="dc-body">DPDP Rules 2025 are now in force. Enforcement pressure is immediate. Compliance tooling is urgently needed.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 3: PROPOSED SOLUTION ===== -->
+  <div class="slide" id="s3">
+    <div class="bg-layer"></div>
+    <div class="skyline"></div>
+
+    <div class="topbar">
+      <div class="logo-area">
+        <svg class="tent-logo" viewBox="0 0 60 60" fill="none">
+          <path d="M30 5 L55 50 H5 Z" fill="#1a2f6e" stroke="#2a4db5" stroke-width="2"/>
+          <path d="M30 5 L42 50 H18 Z" fill="#2a4db5" opacity="0.6"/>
+          <text x="30" y="38" text-anchor="middle" font-size="9" fill="#00e5c0" font-family="monospace" font-weight="bold">10</text>
+          <text x="30" y="46" text-anchor="middle" font-size="9" fill="#00e5c0" font-family="monospace" font-weight="bold">01</text>
+        </svg>
+        <div class="slide-title-block">
+          <div class="slide-section-label">Proposed Solution</div>
+          <div class="slide-section-sub">PrivacyVault Platform</div>
+        </div>
+      </div>
+      <svg class="circuit-badge" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="28" fill="none" stroke="#c5d3f0" stroke-width="2"/>
+        <circle cx="30" cy="30" r="20" fill="none" stroke="#c5d3f0" stroke-width="1"/>
+        <circle cx="30" cy="10" r="3" fill="#c5d3f0"/>
+        <circle cx="30" cy="50" r="3" fill="#c5d3f0"/>
+        <circle cx="10" cy="30" r="3" fill="#c5d3f0"/>
+        <circle cx="50" cy="30" r="3" fill="#c5d3f0"/>
+        <line x1="30" y1="13" x2="30" y2="47" stroke="#c5d3f0" stroke-width="1"/>
+        <line x1="13" y1="30" x2="47" y2="30" stroke="#c5d3f0" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <div class="content">
+      <div class="section-tag">PrivacyVault — Unified DPDP Compliance</div>
+      <div class="content-title">Centralized Platform Operationalizing DPDP Compliance</div>
+
+      <div class="solution-grid">
+        <ul class="feature-list">
+          <li>
+            <span class="fi">🗺️</span>
+            <div><strong>Data Mapping & Inventory</strong>Maps & tracks personal data across all internal systems and third-party processors in real time.</div>
+          </li>
+          <li>
+            <span class="fi">👤</span>
+            <div><strong>Citizen Self-Service Portal</strong>Citizens can exercise rights (Access / Correction / Erasure) with verified identity — no calls, no paper.</div>
+          </li>
+          <li>
+            <span class="fi">⚙️</span>
+            <div><strong>Admin Review Based Workflows</strong>Admin queue with review, approval, and Email Token + Phone OTP verification before processing.</div>
+          </li>
+          <li>
+            <span class="fi">📡</span>
+            <div><strong>Propagation to All Processors</strong>Deletion/update commands pushed to all branches & processors with confirmation proof.</div>
+          </li>
+          <li>
+            <span class="fi">🔍</span>
+            <div><strong>Request Tracking Portal</strong>Citizens track live DSAR status via unique token — shows progress stages, deadline, days remaining & verification state.</div>
+          </li>
+          <li>
+            <span class="fi">📊</span>
+            <div><strong>Public Compliance Dashboard</strong>Live compliance score, overdue count, avg. resolution days & request breakdown — full DPDP transparency report.</div>
+          </li>
+          <li>
+            <span class="fi">📄</span>
+            <div><strong>Compliance-Proof PDF Reports</strong>Instant audit-ready PDFs generated after each DSAR resolution for regulatory evidence.</div>
+          </li>
+        </ul>
+
+        <div class="flow-panel">
+          <div class="flow-title">⚡ Core Request Flow</div>
+          <div class="flow-steps">
+            <div class="flow-step"><span class="step-num">1</span>Citizen Login + Verification</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step"><span class="step-num">2</span>Submit DSAR Request</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step"><span class="step-num">3</span>Admin Reviews & Approves</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step"><span class="step-num">4</span>Propagation to All Processors</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step"><span class="step-num">5</span>Audit Report Generated</div>
+          </div>
+
+          <div class="differentiator">
+            <div class="diff-title">🌟 Key Differentiator</div>
+            <div class="diff-body">Live processor propagation tracking + public compliance dashboard + citizen request tracking — all in one platform, purpose-built for India's DPDP Act.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 4: TECH STACK ===== -->
+  <div class="slide" id="s4">
+    <div class="bg-layer"></div>
+    <div class="skyline"></div>
+
+    <div class="topbar">
+      <div class="logo-area">
+        <svg class="tent-logo" viewBox="0 0 60 60" fill="none">
+          <path d="M30 5 L55 50 H5 Z" fill="#1a2f6e" stroke="#2a4db5" stroke-width="2"/>
+          <path d="M30 5 L42 50 H18 Z" fill="#2a4db5" opacity="0.6"/>
+          <text x="30" y="38" text-anchor="middle" font-size="9" fill="#00e5c0" font-family="monospace" font-weight="bold">10</text>
+          <text x="30" y="46" text-anchor="middle" font-size="9" fill="#00e5c0" font-family="monospace" font-weight="bold">01</text>
+        </svg>
+        <div class="slide-title-block">
+          <div class="slide-section-label">Tech Stack Used</div>
+          <div class="slide-section-sub">Technologies & Frameworks</div>
+        </div>
+      </div>
+      <svg class="circuit-badge" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="28" fill="none" stroke="#c5d3f0" stroke-width="2"/>
+        <circle cx="30" cy="30" r="20" fill="none" stroke="#c5d3f0" stroke-width="1"/>
+        <circle cx="30" cy="10" r="3" fill="#c5d3f0"/>
+        <circle cx="30" cy="50" r="3" fill="#c5d3f0"/>
+        <circle cx="10" cy="30" r="3" fill="#c5d3f0"/>
+        <circle cx="50" cy="30" r="3" fill="#c5d3f0"/>
+        <line x1="30" y1="13" x2="30" y2="47" stroke="#c5d3f0" stroke-width="1"/>
+        <line x1="13" y1="30" x2="47" y2="30" stroke="#c5d3f0" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <div class="content">
+      <div class="section-tag">Full-Stack Modern Architecture</div>
+      <div class="content-title">Technologies Powering PrivacyVault</div>
+
+      <div class="tech-grid">
+        <!-- Frontend -->
+        <div class="tech-category">
+          <div class="tc-header">
+            <div class="tc-icon" style="background:rgba(0,229,192,0.15);">🖥️</div>
+            <div class="tc-title">Frontend</div>
+          </div>
+          <div class="tech-item">
+            <div class="ti-name">Next.js 15 (App Router)</div>
+            <div class="ti-desc">Fast, SEO-friendly server components</div>
+          </div>
+          <div class="tech-item">
+            <div class="ti-name">TypeScript</div>
+            <div class="ti-desc">Full type safety across the codebase</div>
+          </div>
+          <div class="tech-item">
+            <div class="ti-name">Tailwind CSS </div>
+            <div class="ti-desc">Beautiful, consistent UI components</div>
+          </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="tech-category">
+          <div class="tc-header">
+            <div class="tc-icon" style="background:rgba(42,77,181,0.25);">⚙️</div>
+            <div class="tc-title">Backend & DB</div>
+          </div>
+          <div class="tech-item">
+            <div class="ti-name">Supabase</div>
+            <div class="ti-desc">PostgreSQL, Auth (Email/OTP), Storage</div>
+          </div>
+          <div class="tech-item">
+            <div class="ti-name">Row Level Security (RLS)</div>
+            <div class="ti-desc">Granular data access control built-in</div>
+          </div>
+          <div class="tech-item">
+            <div class="ti-name">Claude API (Anthropic)</div>
+            <div class="ti-desc">AI DSAR summaries & recommended actions for admins</div>
+          </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="tech-category" style="grid-column: span 2;">
+          <div class="tc-header">
+            <div class="tc-icon" style="background:rgba(0,210,106,0.15);">🛠️</div>
+            <div class="tc-title">Other Tools & Deployment</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;">
+            <div class="tech-item">
+              <div class="ti-name">jsPDF + autotable</div>
+              <div class="ti-desc">Compliance-proof PDF generation</div>
+            </div>
+            <div class="tech-item">
+              <div class="ti-name">Framer Motion</div>
+              <div class="ti-desc">Smooth UI animations & transitions</div>
+            </div>
+            <div class="tech-item">
+              <div class="ti-name">Zod + React Hook Form</div>
+              <div class="ti-desc">Type-safe form validation</div>
+            </div>
+            <div class="tech-item">
+              <div class="ti-name">Vercel (Planned)</div>
+              <div class="ti-desc">Free, instant, scalable deployment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 5: BUSINESS VALUE ===== -->
+  <div class="slide" id="s5">
+    <div class="bg-layer"></div>
+    <div class="skyline"></div>
+
+    <div class="topbar">
+      <div class="logo-area">
+        <svg class="tent-logo" viewBox="0 0 60 60" fill="none">
+          <path d="M30 5 L55 50 H5 Z" fill="#1a2f6e" stroke="#2a4db5" stroke-width="2"/>
+          <path d="M30 5 L42 50 H18 Z" fill="#2a4db5" opacity="0.6"/>
+          <text x="30" y="38" text-anchor="middle" font-size="9" fill="#00e5c0" font-family="monospace" font-weight="bold">10</text>
+          <text x="30" y="46" text-anchor="middle" font-size="9" fill="#00e5c0" font-family="monospace" font-weight="bold">01</text>
+        </svg>
+        <div class="slide-title-block">
+          <div class="slide-section-label">Business Value /</div>
+          <div class="slide-section-sub">Unique Proposition</div>
+        </div>
+      </div>
+      <svg class="circuit-badge" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="28" fill="none" stroke="#c5d3f0" stroke-width="2"/>
+        <circle cx="30" cy="30" r="20" fill="none" stroke="#c5d3f0" stroke-width="1"/>
+        <circle cx="30" cy="10" r="3" fill="#c5d3f0"/>
+        <circle cx="30" cy="50" r="3" fill="#c5d3f0"/>
+        <circle cx="10" cy="30" r="3" fill="#c5d3f0"/>
+        <circle cx="50" cy="30" r="3" fill="#c5d3f0"/>
+        <line x1="30" y1="13" x2="30" y2="47" stroke="#c5d3f0" stroke-width="1"/>
+        <line x1="13" y1="30" x2="47" y2="30" stroke="#c5d3f0" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <div class="content">
+      <div class="section-tag">ROI & Competitive Differentiation</div>
+      <div class="content-title">Business Value & Unique Selling Proposition</div>
+
+      <div class="bv-grid">
+        <div>
+          <div class="stat-cards">
+            <div class="stat-card">
+              <div class="stat-num">~3h</div>
+              <div class="stat-label">DSAR Processing<br><span style="color:var(--silver);opacity:0.6">vs. Days/Weeks before</span></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">~90%</div>
+              <div class="stat-label">Compliance Score<br><span style="color:var(--silver);opacity:0.6">from 60% baseline</span></div>
+            </div>
+          </div>
+
+          <div class="before-after">
+            <div class="ba-header">
+              <div class="before-h">❌ Before</div>
+              <div class="after-h">✅ After PrivacyVault</div>
+            </div>
+            <div class="ba-row">
+              <div class="before-v">Weeks to process DSARs</div>
+              <div class="after-v">~3 hours with admin review</div>
+            </div>
+            <div class="ba-row">
+              <div class="before-v">Excel chaos, manual effort</div>
+              <div class="after-v">Dashboard + audit trail</div>
+            </div>
+            <div class="ba-row">
+              <div class="before-v">Incomplete processor deletion</div>
+              <div class="after-v">Full propagation with proof</div>
+            </div>
+            <div class="ba-row">
+              <div class="before-v">₹250 Cr penalty risk</div>
+              <div class="after-v">Penalty avoided ✓</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <ul class="usp-list">
+            <li>🇮🇳 <span><strong>India-First:</strong> Purpose-built for DPDP Act + Rules 2025 enforcement reality</span></li>
+            <li>🔄 <span><strong>Dual-Sided Platform:</strong> Citizen self-service portal + Admin propagation dashboard</span></li>
+            <li>🔐 <span><strong>Strong Verification:</strong> Email Token + Phone OTP 2FA on every request</span></li>
+            <li>📡 <span><strong>Processor Propagation:</strong> API/webhook-ready for real-world integrations (Razorpay, AWS S3)</span></li>
+            <li>⚡ <span><strong>Lightweight MVP:</strong> Built in hackathon time, fully scalable to SMEs & enterprises</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 6: FUTURE SCOPE ===== -->
+  <div class="slide" id="s6">
+    <div class="bg-layer"></div>
+    <div class="skyline"></div>
+
+    <div class="topbar">
+      <div class="logo-area">
+        <svg class="tent-logo" viewBox="0 0 60 60" fill="none">
+          <path d="M30 5 L55 50 H5 Z" fill="#1a2f6e" stroke="#2a4db5" stroke-width="2"/>
+          <path d="M30 5 L42 50 H18 Z" fill="#2a4db5" opacity="0.6"/>
+          <text x="30" y="38" text-anchor="middle" font-size="9" fill="#00e5c0" font-family="monospace" font-weight="bold">10</text>
+          <text x="30" y="46" text-anchor="middle" font-size="9" fill="#00e5c0" font-family="monospace" font-weight="bold">01</text>
+        </svg>
+        <div class="slide-title-block">
+          <div class="slide-section-label">Future Scope</div>
+          <div class="slide-section-sub">Roadmap & Vision</div>
+        </div>
+      </div>
+      <svg class="circuit-badge" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="28" fill="none" stroke="#c5d3f0" stroke-width="2"/>
+        <circle cx="30" cy="30" r="20" fill="none" stroke="#c5d3f0" stroke-width="1"/>
+        <circle cx="30" cy="10" r="3" fill="#c5d3f0"/>
+        <circle cx="30" cy="50" r="3" fill="#c5d3f0"/>
+        <circle cx="10" cy="30" r="3" fill="#c5d3f0"/>
+        <circle cx="50" cy="30" r="3" fill="#c5d3f0"/>
+        <line x1="30" y1="13" x2="30" y2="47" stroke="#c5d3f0" stroke-width="1"/>
+        <line x1="13" y1="30" x2="47" y2="30" stroke="#c5d3f0" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <div class="content">
+      <div class="section-tag">Post-Hackathon → Scale → Enterprise</div>
+      <div class="content-title">Growth Roadmap for PrivacyVault</div>
+
+      <div class="timeline-container">
+        <div class="timeline-phase">
+          <div class="phase-label phase-short">
+            <div class="phase-time">NOW</div>
+            <div class="phase-sub">Short-Term</div>
+          </div>
+          <div class="phase-items">
+            <span class="phase-tag pt-cyan">🔗 Real Razorpay / AWS S3 deletion APIs</span>
+            <span class="phase-tag pt-cyan">📋 Consent Manager registration support</span>
+            <span class="phase-tag pt-cyan">📱 Mobile app for citizens</span>
+            <span class="phase-tag pt-cyan">⚡ Automated DSAR processing (&lt;1 hour)</span>
+            <span class="phase-tag pt-cyan">🪪 Govt document-based request submission (Aadhaar / DigiLocker)</span>
+          </div>
+        </div>
+
+        <div class="timeline-phase">
+          <div class="phase-label phase-medium">
+            <div class="phase-time">6 MO</div>
+            <div class="phase-sub">Medium-Term</div>
+          </div>
+          <div class="phase-items">
+            <span class="phase-tag pt-gold">🔍 Full DPIA tools for Significant Data Fiduciaries</span>
+            <span class="phase-tag pt-gold">⚡ Breach notification workflows (72-hour reporting)</span>
+            <span class="phase-tag pt-gold">🌐 Multi-language support (Hindi + regional)</span>
+          </div>
+        </div>
+
+        <div class="timeline-phase">
+          <div class="phase-label phase-long">
+            <div class="phase-time">1–2 YR</div>
+            <div class="phase-sub">Long-Term Vision</div>
+          </div>
+          <div class="phase-items">
+            <span class="phase-tag pt-blue">🏛️ Registered Consent Manager under DPDP Rules</span>
+            <span class="phase-tag pt-blue">🤖 AI-driven risk scoring & automated compliance</span>
+            <span class="phase-tag pt-blue">🏢 Enterprise integrations: Salesforce, SAP, Google Workspace</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 7: THANK YOU ===== -->
+  <div class="slide" id="s7">
+    <div class="bg-layer"></div>
+    <div class="skyline"></div>
+    <div class="circuit" style="right:-50px;left:auto;opacity:0.06;"></div>
+
+    <div style="position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:40px;text-align:center;">
+
+      <div class="ty-ring">
+        <span class="lock-icon">🔐</span>
+      </div>
+
+      <div class="ty-title">Thank <span>You</span></div>
+      <div class="ty-sub">We appreciate your time and feedback.<br>Ready for questions & live demo!</div>
+
+      <div class="impact-chips">
+        <div class="impact-chip"><span class="ic">👤</span> Citizens Empowered</div>
+        <div class="impact-chip"><span class="ic">🏢</span> Organizations Protected</div>
+        <div class="impact-chip"><span class="ic">🛡️</span> Penalties Avoided</div>
+        <div class="impact-chip"><span class="ic">✅</span> DPDP Compliant</div>
+      </div>
+
+      <div class="contact-info">
+        Team ByteDevs &nbsp;·&nbsp; ByteCamp '26 &nbsp;·&nbsp; March 2026
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- Navigation -->
+<div class="nav">
+  <button id="prevBtn" onclick="navigate(-1)" disabled>←</button>
+  <div class="dots" id="dots"></div>
+  <div class="slide-counter" id="counter">1 / 7</div>
+  <button id="nextBtn" onclick="navigate(1)">→</button>
+</div>
+
+<div class="hint">← → Arrow keys to navigate</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('counter');
+  const dotsEl = document.getElementById('dots');
+  let current = 0;
+  const total = slides.length;
+
+  // Build dots
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    document.querySelectorAll('.dot')[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, total - 1));
+    slides[current].classList.add('active');
+    document.querySelectorAll('.dot')[current].classList.add('active');
+    counter.textContent = `${current + 1} / ${total}`;
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === total - 1;
+  }
+
+  function navigate(dir) { goTo(current + dir); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  });
+</script>
+</body>
+</html>

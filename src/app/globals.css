@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: 'Inter', sans-serif;
+  --color-background: oklch(1 0 0);
+  --color-foreground: oklch(0.145 0 0);
+  --color-primary: oklch(0.145 0 0);
+  --color-primary-foreground: oklch(1 0 0);
+  --color-secondary: oklch(0.97 0 0);
+  --color-secondary-foreground: oklch(0.145 0 0);
+  --color-muted: oklch(0.97 0 0);
+  --color-muted-foreground: oklch(0.556 0 0);
+  --color-border: oklch(0.922 0 0);
+  --color-input: oklch(0.922 0 0);
+  --color-ring: oklch(0.145 0 0);
+  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-destructive-foreground: oklch(1 0 0);
+  --radius: 0.25rem;
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground antialiased; font-family: var(--font-sans); }
+}
+
+@layer utilities {
+  .card-gradient {
+    background: linear-gradient(to bottom right, rgb(255 255 255), rgb(249 250 251));
+  }
+  .stats-card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .stats-card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.1);
+  }
+  .input-focus-glow {
+    transition: all 0.2s ease;
+  }
+  .input-focus-glow:focus {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+    border-color: oklch(0.145 0 0);
+  }
+  .field-group {
+    position: relative;
+  }
+  .field-group input:not(:placeholder-shown) + label,
+  .field-group input:focus + label,
+  .field-group textarea:not(:placeholder-shown) + label,
+  .field-group textarea:focus + label {
+    transform: translateY(-1px);
+    color: oklch(0.145 0 0);
+  }
+  .field-group label {
+    transition: transform 0.15s ease, color 0.15s ease;
+    display: block;
+  }
+  .request-type-card {
+    cursor: pointer;
+    border: 2px solid oklch(0.922 0 0);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    transition: all 0.2s ease;
+    background: white;
+  }
+  .request-type-card:hover {
+    border-color: oklch(0.4 0 0);
+    box-shadow: 0 4px 12px -4px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+  }
+  .request-type-card.selected {
+    border-color: oklch(0.145 0 0);
+    background: oklch(0.97 0 0);
+    box-shadow: 0 4px 16px -4px rgba(0,0,0,0.12);
+  }
+  .status-timeline-step {
+    position: relative;
+  }
+  .status-timeline-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 1.125rem;
+    top: 2.5rem;
+    width: 2px;
+    height: calc(100% - 1rem);
+    background: oklch(0.922 0 0);
+  }
+  .status-timeline-step.completed:not(:last-child)::after {
+    background: oklch(0.145 0 0);
+  }
+  .info-card {
+    background: oklch(0.98 0 0);
+    border: 1px solid oklch(0.922 0 0);
+    border-radius: 0.625rem;
+    padding: 0.875rem 1rem;
+    transition: box-shadow 0.2s ease;
+  }
+  .info-card:hover {
+    box-shadow: 0 2px 8px -2px rgba(0,0,0,0.08);
+  }
+  @keyframes status-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  .status-pulse {
+    animation: status-pulse 2s ease-in-out infinite;
+  }
+  .table-row-hover {
+    transition: all 0.15s ease;
+  }
+  .table-row-hover:hover {
+    background: rgb(249 250 251);
+    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.08);
+  }
+}
