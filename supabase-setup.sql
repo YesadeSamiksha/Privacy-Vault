@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
   name       VARCHAR NOT NULL,
   email      VARCHAR UNIQUE NOT NULL,
   phone      VARCHAR,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- ================================================
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS admins (
   name       VARCHAR NOT NULL,
   email      VARCHAR UNIQUE NOT NULL,
   role       VARCHAR DEFAULT 'dpo',
-  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- ================================================
@@ -36,10 +36,10 @@ CREATE TABLE IF NOT EXISTS dsar_requests (
   request_type    TEXT CHECK (request_type IN ('access', 'correction', 'erasure')) NOT NULL,
   request_details TEXT,
   status          TEXT CHECK (status IN ('submitted', 'under_review', 'processing', 'completed', 'rejected')) DEFAULT 'submitted',
-  deadline        DATE GENERATED ALWAYS AS ((created_at + INTERVAL '30 days')::date) STORED,
-  created_at      TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at      TIMESTAMP NOT NULL DEFAULT NOW(),
-  completed_at    TIMESTAMP
+  deadline        DATE GENERATED ALWAYS AS (((created_at AT TIME ZONE 'UTC') + INTERVAL '30 days')::date) STORED,
+  created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  completed_at    TIMESTAMPTZ
 );
 
 -- ================================================

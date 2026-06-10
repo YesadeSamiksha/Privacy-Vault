@@ -34,7 +34,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Too many attempts. Please request a new OTP." }, { status: 429 });
     }
 
-    if (!request.otp_expires_at || new Date(request.otp_expires_at) < new Date()) {
+    const expiresAt = request.otp_expires_at ? new Date(request.otp_expires_at.endsWith("Z") ? request.otp_expires_at : request.otp_expires_at + "Z") : null;
+    if (!expiresAt || expiresAt < new Date()) {
       return NextResponse.json({ message: "OTP has expired. Please request a new one." }, { status: 400 });
     }
 

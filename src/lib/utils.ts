@@ -8,12 +8,26 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatDate(dateString: string | null | undefined): string {
   if (!dateString) return "N/A";
-  try { return format(parseISO(dateString), "MMM d, yyyy"); } catch { return dateString; }
+  try {
+    const normalized = dateString.endsWith("Z") || dateString.includes("+")
+      ? dateString
+      : dateString.replace(" ", "T") + "Z";
+    return format(parseISO(normalized), "MMM d, yyyy");
+  } catch {
+    return dateString;
+  }
 }
 
 export function formatDateTime(dateString: string | null | undefined): string {
   if (!dateString) return "N/A";
-  try { return format(parseISO(dateString), "MMM d, yyyy h:mm a"); } catch { return dateString; }
+  try {
+    const normalized = dateString.endsWith("Z") || dateString.includes("+")
+      ? dateString
+      : dateString.replace(" ", "T") + "Z";
+    return format(parseISO(normalized), "MMM d, yyyy h:mm a");
+  } catch {
+    return dateString;
+  }
 }
 
 export function getStatusTheme(status: string) {
@@ -39,3 +53,26 @@ export function getDaysRemaining(deadline: string | null): number | null {
   if (!deadline) return null;
   return Math.ceil((new Date(deadline).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
 }
+
+export function formatPhoneToE164(phone: string | null | undefined): string | null {
+  if (!phone) return null;
+  const trimmed = phone.trim();
+  if (!trimmed) return null;
+  
+  const digits = trimmed.replace(/[^\d]/g, "");
+  
+  if (trimmed.startsWith("+")) {
+    return `+${digits}`;
+  }
+  
+  if (digits.length === 10) {
+    return `+91${digits}`;
+  }
+  
+  if (digits.length === 12 && digits.startsWith("91")) {
+    return `+${digits}`;
+  }
+  
+  return `+${digits}`;
+}
+

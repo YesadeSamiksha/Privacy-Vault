@@ -24,7 +24,8 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ message: "Invalid or expired token" }, { status: 404 });
     }
 
-    if (!request.email_token_expires_at || new Date(request.email_token_expires_at) < new Date()) {
+    const expiresAt = request.email_token_expires_at ? new Date(request.email_token_expires_at.endsWith("Z") ? request.email_token_expires_at : request.email_token_expires_at + "Z") : null;
+    if (!expiresAt || expiresAt < new Date()) {
       return NextResponse.json({ message: "Verification link has expired. Please submit a new request." }, { status: 400 });
     }
 
