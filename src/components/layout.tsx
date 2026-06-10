@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase-server";
 import { LogoutButton } from "./logout-button";
+import { ThemeToggle } from "./theme-toggle";
 
 export async function Layout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <header className="border-b border-border bg-white sticky top-0 z-10">
+    <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300">
+      <header className="border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="font-bold text-xl tracking-tight text-primary hover:opacity-80 transition-opacity">
             PrivacyVault.
@@ -20,15 +21,16 @@ export async function Layout({ children }: { children: React.ReactNode }) {
             <Link href="/compliance" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
               Compliance
             </Link>
+            <ThemeToggle />
             {user ? (
-              <div className="flex items-center gap-4 ml-4 pl-4 border-l border-border">
+              <div className="flex items-center gap-4 ml-2 pl-4 border-l border-border">
                 <Link href="/admin" className="text-sm font-medium text-primary hover:underline">
                   Dashboard
                 </Link>
                 <LogoutButton />
               </div>
             ) : (
-              <Link href="/admin/login" className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors ml-4">
+              <Link href="/admin/login" className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors ml-2">
                 Admin
               </Link>
             )}
@@ -38,7 +40,7 @@ export async function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {children}
       </main>
-      <footer className="border-t border-border py-8 text-center">
+      <footer className="border-t border-border py-8 text-center bg-background/50">
         <p className="text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} PrivacyVault Platform. DPDP Act 2023 Compliant.
         </p>

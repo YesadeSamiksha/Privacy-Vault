@@ -129,7 +129,19 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
                 <CardDescription>Generate an automated summary and action plan.</CardDescription>
               </div>
             </CardHeader>
-            <AiSummary requestId={id} />
+            <AiSummary
+              requestId={id}
+              initialData={req.ai_summary ? {
+                summary: req.ai_summary,
+                recommendedAction: req.dpdp_recommendations?.split("\n")[0] || "",
+                urgencyLevel: req.risk_score?.toLowerCase() || "low",
+                exposureScore: req.exposure_score,
+                riskScore: req.risk_score,
+                dataCategories: req.data_categories,
+                complianceInsights: req.compliance_insights,
+                dpdpRecommendations: req.dpdp_recommendations,
+              } : null}
+            />
           </Card>
 
           {(req.request_type === "access" || req.request_type === "erasure" || req.request_type === "correction") && (
@@ -145,6 +157,12 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
                   return parsed.corrections ?? undefined;
                 } catch { return undefined; }
               })()}
+              exposureScore={req.exposure_score}
+              riskScore={req.risk_score}
+              dataCategories={req.data_categories}
+              complianceInsights={req.compliance_insights}
+              dpdpRecommendations={req.dpdp_recommendations}
+              aiSummary={req.ai_summary}
             />
           )}
         </div>

@@ -111,9 +111,27 @@ type Props = {
   userEmail: string;
   userName: string;
   requestedCorrections?: Record<string, string>;
+  exposureScore?: number;
+  riskScore?: string;
+  dataCategories?: string[];
+  complianceInsights?: string;
+  dpdpRecommendations?: string;
+  aiSummary?: string;
 };
 
-export function ProcessorPropagation({ requestId, requestType, userEmail, userName, requestedCorrections }: Props) {
+export function ProcessorPropagation({
+  requestId,
+  requestType,
+  userEmail,
+  userName,
+  requestedCorrections,
+  exposureScore,
+  riskScore,
+  dataCategories,
+  complianceInsights,
+  dpdpRecommendations,
+  aiSummary,
+}: Props) {
   const [processorStates, setProcessorStates] = useState<ProcessorState[]>([]);
   const [phase, setPhase] = useState<"idle" | "fetching" | "done">("idle");
   const [isActioning, setIsActioning] = useState(false);
@@ -221,87 +239,159 @@ export function ProcessorPropagation({ requestId, requestType, userEmail, userNa
       const margin = 15;
       let y = margin;
 
-      doc.setFontSize(18);
-      doc.setFont("helvetica", "bold");
-      doc.setTextColor(30, 58, 138);
-      doc.text("PrivacyVault – DSAR Processor Report", margin, y);
+      // Header Banner
+      doc.setFillColor(30, 58, 138); // Navy
+      doc.rect(margin, y, pageWidth - 2 * margin, 3, "F");
       y += 8;
 
-      doc.setFontSize(9);
+      doc.setFontSize(20);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(30, 58, 138);
+      doc.text("PrivacyVault – DSAR Compliance Report", margin, y);
+      y += 6;
+
+      doc.setFontSize(8);
       doc.setFont("helvetica", "normal");
-      doc.setTextColor(100, 100, 100);
-      doc.text(`Generated: ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST`, margin, y);
+      doc.setTextColor(120, 120, 120);
+      doc.text(`Generated: ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST | DPDP Act 2023 Section 12 Audit Log`, margin, y);
       y += 10;
 
+      // Citizen & Request Details
       doc.setFontSize(11);
       doc.setFont("helvetica", "bold");
-      doc.setTextColor(0, 0, 0);
-      doc.text("Citizen & Request Details", margin, y);
-      y += 6;
+      doc.setTextColor(50, 50, 50);
+      doc.text("1. Request & Citizen Details", margin, y);
+      y += 5;
 
       autoTable(doc, {
         startY: y,
         theme: "grid",
-        styles: { fontSize: 9, cellPadding: 3 },
+        styles: { fontSize: 8.5, cellPadding: 2.5 },
         headStyles: { fillColor: [30, 58, 138], textColor: 255, fontStyle: "bold" },
         head: [["Field", "Value"]],
         body: [
-          ["Name", userName],
-          ["Email", userEmail],
-          ["Request ID", requestId],
-          ["Request Type", requestType.charAt(0).toUpperCase() + requestType.slice(1)],
-          ["Report Generated At", new Date().toISOString()],
+          ["Citizen Name", userName],
+          ["Citizen Email", userEmail],
+          ["Request Token", requestId],
+          ["Request Type", requestType.toUpperCase()],
+          ["Timeline Status", allDone ? "Fully Resolved" : "Under Action"],
         ],
         margin: { left: margin, right: margin },
       });
 
-      y = (doc as InstanceType<typeof jsPDF> & { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 10;
+      y = (doc as any).lastAutoTable.finalY + 8;
 
-      doc.setFontSize(11);
-      doc.setFont("helvetica", "bold");
-      doc.text("Processor Fetch Results", margin, y);
-      y += 6;
-
-      autoTable(doc, {
-        startY: y,
-        theme: "striped",
-        styles: { fontSize: 9, cellPadding: 3 },
-        headStyles: { fillColor: [30, 58, 138], textColor: 255, fontStyle: "bold" },
-        head: [["Processor", "Type", "Data Status", "Action Taken"]],
-        body: processorStates.map((p) => [
-          p.processorName,
-          p.type,
-          p.found ? "Found" : "Not Found",
-          p.deleted ? "Deleted" : p.modified ? "Modified" : p.found ? "Retained" : "N/A",
-        ]),
-        margin: { left: margin, right: margin },
-      });
-
-      y = (doc as InstanceType<typeof jsPDF> & { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 10;
-
-      const actionedProcessors = processorStates.filter((p) => p.deleted || p.modified);
-      if (actionedProcessors.length > 0) {
-        if (y > 250) { doc.addPage(); y = margin; }
+      // AI Compliance Assessment Section
+      if (exposureScore !== undefined) {
+        if (y > 220) { doc.addPage(); y = margin; }
+        
         doc.setFontSize(11);
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(isErasure ? 185 : 217, isErasure ? 28 : 119, isErasure ? 28 : 6);
-        doc.text(`${isErasure ? "Erasure" : "Modification"} Summary`, margin, y);
-        y += 6;
+        doc.setTextColor(50, 50, 50);
+        doc.text("2. AI Compliance & Risk Assessment", margin, y);
+        y += 5;
 
         autoTable(doc, {
           startY: y,
           theme: "grid",
-          styles: { fontSize: 9, cellPadding: 3 },
-          headStyles: { fillColor: isErasure ? [185, 28, 28] : [217, 119, 6], textColor: 255, fontStyle: "bold" },
-          head: [["Processor", "Type", "Action Logged At"]],
-          body: actionedProcessors.map((p) => [
-            p.processorName,
-            p.type,
-            new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) + " IST",
-          ]),
+          styles: { fontSize: 8.5, cellPadding: 2.5 },
+          headStyles: { fillColor: [71, 85, 105], textColor: 255, fontStyle: "bold" },
+          head: [["Privacy Metric", "Value / Rating"]],
+          body: [
+            ["Privacy Exposure Score", `${exposureScore} / 100`],
+            ["Risk Level Classification", riskScore || "Low"],
+            ["Exposed Data Categories", (dataCategories || []).join(", ") || "None"],
+            ["AI Summary Analysis", aiSummary || "N/A"],
+          ],
           margin: { left: margin, right: margin },
         });
+
+        y = (doc as any).lastAutoTable.finalY + 8;
       }
+
+      // Legal Compliance Insights & Action Guidelines
+      if (complianceInsights || dpdpRecommendations) {
+        if (y > 220) { doc.addPage(); y = margin; }
+
+        doc.setFontSize(11);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(50, 50, 50);
+        doc.text("3. DPDP Act Legal Action Guidelines", margin, y);
+        y += 5;
+
+        const bodyRows = [];
+        if (complianceInsights) {
+          bodyRows.push(["DPDP Act Compliance Insights", complianceInsights.replace(/• /g, "• ")]);
+        }
+        if (dpdpRecommendations) {
+          bodyRows.push(["DPO Action Guidelines", dpdpRecommendations]);
+        }
+
+        autoTable(doc, {
+          startY: y,
+          theme: "grid",
+          styles: { fontSize: 8.5, cellPadding: 3, overflow: "linebreak" },
+          columnStyles: {
+            0: { cellWidth: 45, fontStyle: "bold", textColor: [30, 58, 138] },
+            1: { cellWidth: "auto" }
+          },
+          head: [["Compliance Metric", "Requirements & Recommended Steps"]],
+          headStyles: { fillColor: [30, 58, 138], textColor: 255, fontStyle: "bold" },
+          body: bodyRows,
+          margin: { left: margin, right: margin },
+        });
+
+        y = (doc as any).lastAutoTable.finalY + 8;
+      }
+
+      // Processor Propagation Section
+      if (y > 220) { doc.addPage(); y = margin; }
+      
+      doc.setFontSize(11);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(50, 50, 50);
+      doc.text("4. Downstream Processor Propagation Logs", margin, y);
+      y += 5;
+
+      autoTable(doc, {
+        startY: y,
+        theme: "striped",
+        styles: { fontSize: 8, cellPadding: 2.5 },
+        headStyles: { fillColor: [51, 65, 85], textColor: 255, fontStyle: "bold" },
+        head: [["Processor", "Type", "Status", "Action Executed"]],
+        body: processorStates.map((p) => [
+          p.processorName,
+          p.type,
+          p.found ? "Data Located" : "No Records Found",
+          p.deleted ? "Command Executed: Data Deleted" : p.modified ? "Command Executed: Data Corrected" : p.found ? "Retained" : "N/A",
+        ]),
+        margin: { left: margin, right: margin },
+      });
+
+      y = (doc as any).lastAutoTable.finalY + 15;
+
+      // Signature / Certification Block
+      if (y > 230) { doc.addPage(); y = margin; }
+      
+      doc.setDrawColor(200, 200, 200);
+      doc.line(margin, y, margin + 65, y);
+      y += 5;
+      
+      doc.setFontSize(9);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(50, 50, 50);
+      doc.text("Data Protection Officer (DPO)", margin, y);
+      y += 4;
+      
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(120, 120, 120);
+      doc.text("PrivacyVault Compliance Registry", margin, y);
+      y += 4;
+      
+      doc.setFontSize(7.5);
+      doc.setFont("helvetica", "oblique");
+      doc.setTextColor(150, 150, 150);
+      doc.text("Certified compliant under the Digital Personal Data Protection (DPDP) Act, 2023.", margin, y);
 
       const totalPages = doc.getNumberOfPages();
       for (let i = 1; i <= totalPages; i++) {
@@ -309,14 +399,14 @@ export function ProcessorPropagation({ requestId, requestType, userEmail, userNa
         doc.setFontSize(8);
         doc.setTextColor(150, 150, 150);
         doc.text(
-          `PrivacyVault DPDP Act Compliance Platform | Page ${i} of ${totalPages}`,
+          `PrivacyVault DPDP Compliance Audit Trail | Page ${i} of ${totalPages}`,
           pageWidth / 2,
           doc.internal.pageSize.getHeight() - 8,
           { align: "center" }
         );
       }
 
-      doc.save(`DSAR-Processor-Report-${requestId.slice(0, 8)}.pdf`);
+      doc.save(`DSAR-Audit-Report-${requestId.slice(0, 8)}.pdf`);
     } catch (e) {
       console.error("PDF generation error:", e);
     } finally {

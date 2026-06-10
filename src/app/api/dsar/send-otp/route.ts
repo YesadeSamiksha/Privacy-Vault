@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
 
     const { data: existing, error: fetchError } = await supabase
       .from("dsar_requests")
-      .select("id")
+      .select("id, last_otp_sent_at")
       .eq("id", requestId)
       .eq("status", "pending")
       .single();
@@ -43,9 +43,21 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Request not found" }, { status: 404 });
     }
 
+    // Rate limit: 60 seconds cooldown
+    const lastSent = existing.last_otp_sent_at ? new Date(existing.last_otp_sent_at.endsWith("Z") ? existing.last_otp_sent_at : existing.last_otp_sent_at + "Z") : null;
+    if (lastSent && Date.now() - lastSent.getTime() < 60 * 1000) {
+      const waitSecs = Math.ceil((60 * 1000 - (Date.now() - lastSent.getTime())) / 1000);
+      return NextResponse.json({ message: `Please wait ${waitSecs} seconds before requesting another OTP.` }, { status: 429 });
+    }
+
     const { error } = await supabase
       .from("dsar_requests")
-      .update({ phone_otp: otp, otp_expires_at: otpExpiresAt, otp_attempts: 0 })
+      .update({ 
+        phone_otp: otp, 
+        otp_expires_at: otpExpiresAt, 
+        otp_attempts: 0,
+        last_otp_sent_at: new Date().toISOString()
+      })
       .eq("id", requestId);
 
     if (error) throw error;

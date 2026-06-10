@@ -4,280 +4,979 @@
     "name": "PayFast India",
     "type": "Payment Processor",
     "records": {
-      "arjun.mehta@outlook.com": {
-        "account_id": "PF-MH-00788",
-        "full_name": "Arjun Mehta",
-        "phone": "+91 91234 56789",
-        "upi_id": "arjun.mehta@oksbi",
-        "linked_bank": "State Bank of India, Mumbai Branch",
+      "neha.kulkarni@yahoo.co.in": {
+        "account_id": "ACC-PAYF-44134",
+        "full_name": "Neha Kulkarni",
+        "phone": "+918765432109",
+        "upi_id": "neha.kulkarni@okpayf",
+        "linked_bank": "State Bank of India, Main Branch",
         "transactions": [
           {
-            "id": "TXN-20240205",
-            "amount": "₹2,300",
-            "merchant": "Amazon",
-            "date": "2024-02-05",
+            "id": "TXN-4858029",
+            "amount": "₹2455",
+            "merchant": "Zomato",
+            "date": "2026-05-15",
             "status": "success"
           },
           {
-            "id": "TXN-20240320",
-            "amount": "₹7,600",
-            "merchant": "Flipkart",
-            "date": "2024-03-20",
+            "id": "TXN-8758571",
+            "amount": "₹728",
+            "merchant": "Amazon",
+            "date": "2026-06-01",
             "status": "success"
           }
         ],
-        "kyc_status": "verified",
-        "registered_on": "2021-11-03"
-      },
-      "neha.kulkarni@yahoo.co.in": {
-        "account_id": "PF-MH-01134",
-        "full_name": "Neha Kulkarni",
-        "phone": "+91 87654 32109",
-        "upi_id": "neha.kulkarni@okhdfcbank",
-        "linked_bank": "HDFC Bank, Nashik Branch",
-        "transactions": [
-          {
-            "id": "TXN-20240112",
-            "amount": "₹15,000",
-            "merchant": "Apple Store",
-            "date": "2024-01-12",
-            "status": "success"
-          }
-        ],
-        "kyc_status": "pending",
-        "registered_on": "2023-03-22"
+        "kyc_status": "verified"
       },
       "rahul.desai@protonmail.com": {
-        "account_id": "PF-MH-01562",
+        "account_id": "ACC-PAYF-48745",
         "full_name": "Rahul Desai",
-        "phone": "+91 70000 11223",
-        "upi_id": "rahul.desai@okaxis",
-        "linked_bank": "Axis Bank, Nagpur Branch",
+        "phone": "+917000011223",
+        "upi_id": "rahul.desai@okpayf",
+        "linked_bank": "State Bank of India, Main Branch",
         "transactions": [
           {
-            "id": "TXN-20240418",
-            "amount": "₹3,200",
+            "id": "TXN-9304019",
+            "amount": "₹3234",
             "merchant": "Zomato",
-            "date": "2024-04-18",
+            "date": "2026-05-15",
             "status": "success"
           },
           {
-            "id": "TXN-20240501",
-            "amount": "₹9,999",
-            "merchant": "Nykaa",
-            "date": "2024-05-01",
+            "id": "TXN-5716028",
+            "amount": "₹1297",
+            "merchant": "Amazon",
+            "date": "2026-06-01",
             "status": "success"
           }
         ],
-        "kyc_status": "verified",
-        "registered_on": "2023-07-10"
+        "kyc_status": "verified"
       }
     }
   },
   {
-    "id": "salescrm-india",
-    "name": "SalesCRM India",
+    "id": "razorflow",
+    "name": "RazorFlow Payments",
+    "type": "Payment Processor",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "account_id": "ACC-RAZO-66753",
+        "full_name": "Arjun Mehta",
+        "phone": "+919123456789",
+        "upi_id": "arjun.mehta@okrazo",
+        "linked_bank": "State Bank of India, Main Branch",
+        "transactions": [
+          {
+            "id": "TXN-3952743",
+            "amount": "₹3241",
+            "merchant": "Zomato",
+            "date": "2026-05-15",
+            "status": "success"
+          },
+          {
+            "id": "TXN-5720720",
+            "amount": "₹821",
+            "merchant": "Amazon",
+            "date": "2026-06-01",
+            "status": "success"
+          }
+        ],
+        "kyc_status": "verified"
+      }
+    }
+  },
+  {
+    "id": "bharatpay",
+    "name": "BharatPay QR",
+    "type": "Payment Processor",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "account_id": "ACC-BHAR-83960",
+        "full_name": "Arjun Mehta",
+        "phone": "+919123456789",
+        "upi_id": "arjun.mehta@okbhar",
+        "linked_bank": "State Bank of India, Main Branch",
+        "transactions": [
+          {
+            "id": "TXN-8172456",
+            "amount": "₹1267",
+            "merchant": "Zomato",
+            "date": "2026-05-15",
+            "status": "success"
+          },
+          {
+            "id": "TXN-2331410",
+            "amount": "₹2083",
+            "merchant": "Amazon",
+            "date": "2026-06-01",
+            "status": "success"
+          }
+        ],
+        "kyc_status": "verified"
+      },
+      "neha.kulkarni@yahoo.co.in": {
+        "account_id": "ACC-BHAR-21808",
+        "full_name": "Neha Kulkarni",
+        "phone": "+918765432109",
+        "upi_id": "neha.kulkarni@okbhar",
+        "linked_bank": "State Bank of India, Main Branch",
+        "transactions": [
+          {
+            "id": "TXN-6220864",
+            "amount": "₹3528",
+            "merchant": "Zomato",
+            "date": "2026-05-15",
+            "status": "success"
+          },
+          {
+            "id": "TXN-6091816",
+            "amount": "₹968",
+            "merchant": "Amazon",
+            "date": "2026-06-01",
+            "status": "success"
+          }
+        ],
+        "kyc_status": "verified"
+      },
+      "rahul.desai@protonmail.com": {
+        "account_id": "ACC-BHAR-63504",
+        "full_name": "Rahul Desai",
+        "phone": "+917000011223",
+        "upi_id": "rahul.desai@okbhar",
+        "linked_bank": "State Bank of India, Main Branch",
+        "transactions": [
+          {
+            "id": "TXN-6194327",
+            "amount": "₹3007",
+            "merchant": "Zomato",
+            "date": "2026-05-15",
+            "status": "success"
+          },
+          {
+            "id": "TXN-9620961",
+            "amount": "₹1534",
+            "merchant": "Amazon",
+            "date": "2026-06-01",
+            "status": "success"
+          }
+        ],
+        "kyc_status": "verified"
+      },
+      "samiksha.yesade@gmail.com": {
+        "account_id": "ACC-BHAR-86855",
+        "full_name": "Samiksha Yesade",
+        "phone": "+919224051959",
+        "upi_id": "samiksha.yesade@okbhar",
+        "linked_bank": "State Bank of India, Main Branch",
+        "transactions": [
+          {
+            "id": "TXN-8969172",
+            "amount": "₹3678",
+            "merchant": "Zomato",
+            "date": "2026-05-15",
+            "status": "success"
+          },
+          {
+            "id": "TXN-5662711",
+            "amount": "₹443",
+            "merchant": "Amazon",
+            "date": "2026-06-01",
+            "status": "success"
+          }
+        ],
+        "kyc_status": "verified"
+      }
+    }
+  },
+  {
+    "id": "cashshield",
+    "name": "CashShield Risk",
+    "type": "Payment Processor",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "merchant_id": "SHIELD-92755",
+        "full_name": "Arjun Mehta",
+        "email": "arjun.mehta@outlook.com",
+        "phone": "+919123456789",
+        "fraud_risk_score": 27,
+        "status": "whitelisted"
+      },
+      "samiksha.yesade@gmail.com": {
+        "merchant_id": "SHIELD-73209",
+        "full_name": "Samiksha Yesade",
+        "email": "samiksha.yesade@gmail.com",
+        "phone": "+919224051959",
+        "fraud_risk_score": 27,
+        "status": "whitelisted"
+      }
+    }
+  },
+  {
+    "id": "zohopeople",
+    "name": "ZohoPeople HR",
+    "type": "HR System",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "employee_id": "EMP-IN-9000",
+        "full_name": "Arjun Mehta",
+        "phone": "+919123456789",
+        "department": "Engineering",
+        "designation": "Software Engineer",
+        "monthly_salary": "₹1,20,000",
+        "tax_bracket": "20%",
+        "pan_card": "ABCDE3505F"
+      },
+      "neha.kulkarni@yahoo.co.in": {
+        "employee_id": "EMP-IN-5545",
+        "full_name": "Neha Kulkarni",
+        "phone": "+918765432109",
+        "department": "Engineering",
+        "designation": "Software Engineer",
+        "monthly_salary": "₹1,20,000",
+        "tax_bracket": "20%",
+        "pan_card": "ABCDE8455F"
+      },
+      "rahul.desai@protonmail.com": {
+        "employee_id": "EMP-IN-4710",
+        "full_name": "Rahul Desai",
+        "phone": "+917000011223",
+        "department": "Engineering",
+        "designation": "Software Engineer",
+        "monthly_salary": "₹1,20,000",
+        "tax_bracket": "20%",
+        "pan_card": "ABCDE1268F"
+      },
+      "samiksha.yesade@gmail.com": {
+        "employee_id": "EMP-IN-8950",
+        "full_name": "Samiksha Yesade",
+        "phone": "+919224051959",
+        "department": "Engineering",
+        "designation": "Software Engineer",
+        "monthly_salary": "₹1,20,000",
+        "tax_bracket": "20%",
+        "pan_card": "ABCDE7620F"
+      }
+    }
+  },
+  {
+    "id": "greythr",
+    "name": "Greythr Payroll",
+    "type": "HR System",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "employee_id": "EMP-IN-7240",
+        "full_name": "Arjun Mehta",
+        "phone": "+919123456789",
+        "department": "Engineering",
+        "designation": "Software Engineer",
+        "monthly_salary": "₹1,20,000",
+        "tax_bracket": "20%",
+        "pan_card": "ABCDE8749F"
+      },
+      "samiksha.yesade@gmail.com": {
+        "employee_id": "EMP-IN-1922",
+        "full_name": "Samiksha Yesade",
+        "phone": "+919224051959",
+        "department": "Engineering",
+        "designation": "Software Engineer",
+        "monthly_salary": "₹1,20,000",
+        "tax_bracket": "20%",
+        "pan_card": "ABCDE8407F"
+      }
+    }
+  },
+  {
+    "id": "workforce-india",
+    "name": "WorkForce India",
+    "type": "HR System",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "employee_id": "EMP-IN-3601",
+        "full_name": "Arjun Mehta",
+        "phone": "+919123456789",
+        "department": "Engineering",
+        "designation": "Software Engineer",
+        "monthly_salary": "₹1,20,000",
+        "tax_bracket": "20%",
+        "pan_card": "ABCDE4656F"
+      },
+      "neha.kulkarni@yahoo.co.in": {
+        "employee_id": "EMP-IN-3387",
+        "full_name": "Neha Kulkarni",
+        "phone": "+918765432109",
+        "department": "Engineering",
+        "designation": "Software Engineer",
+        "monthly_salary": "₹1,20,000",
+        "tax_bracket": "20%",
+        "pan_card": "ABCDE4378F"
+      },
+      "rahul.desai@protonmail.com": {
+        "employee_id": "EMP-IN-1429",
+        "full_name": "Rahul Desai",
+        "phone": "+917000011223",
+        "department": "Engineering",
+        "designation": "Software Engineer",
+        "monthly_salary": "₹1,20,000",
+        "tax_bracket": "20%",
+        "pan_card": "ABCDE9037F"
+      },
+      "samiksha.yesade@gmail.com": {
+        "employee_id": "EMP-IN-9498",
+        "full_name": "Samiksha Yesade",
+        "phone": "+919224051959",
+        "department": "Engineering",
+        "designation": "Software Engineer",
+        "monthly_salary": "₹1,20,000",
+        "tax_bracket": "20%",
+        "pan_card": "ABCDE4961F"
+      }
+    }
+  },
+  {
+    "id": "salesforce-india",
+    "name": "Salesforce India",
+    "type": "CRM System",
+    "records": {}
+  },
+  {
+    "id": "hubspot",
+    "name": "HubSpot CRM",
     "type": "CRM System",
     "records": {
       "arjun.mehta@outlook.com": {
-        "crm_id": "CRM-2024-00091",
-        "full_name": "Arjun Mehta",
+        "lead_id": "LEAD-624825",
+        "contact_name": "Arjun Mehta",
         "email": "arjun.mehta@outlook.com",
-        "phone": "+91 91234 56789",
-        "address": "Flat 4B, Shree Apartments, Andheri West, Mumbai, Maharashtra 400058",
-        "lead_source": "Trade Show – BizExpo 2023",
-        "deal_stage": "Proposal Sent",
-        "deal_value": "₹3,50,000",
-        "last_contact": "2024-03-18",
-        "assigned_rep": "Vikram Iyer",
-        "notes": "Interested in enterprise plan. Follow up after Q1 board meeting.",
-        "tags": [
-          "enterprise",
-          "hot-lead",
-          "Maharashtra"
+        "phone": "+919123456789",
+        "company": "Self-Employed",
+        "status": "qualified",
+        "estimated_value": "₹5,00,000"
+      },
+      "neha.kulkarni@yahoo.co.in": {
+        "lead_id": "LEAD-647604",
+        "contact_name": "Neha Kulkarni",
+        "email": "neha.kulkarni@yahoo.co.in",
+        "phone": "+918765432109",
+        "company": "Self-Employed",
+        "status": "qualified",
+        "estimated_value": "₹5,00,000"
+      },
+      "rahul.desai@protonmail.com": {
+        "lead_id": "LEAD-295311",
+        "contact_name": "Rahul Desai",
+        "email": "rahul.desai@protonmail.com",
+        "phone": "+917000011223",
+        "company": "Self-Employed",
+        "status": "qualified",
+        "estimated_value": "₹5,00,000"
+      }
+    }
+  },
+  {
+    "id": "zohocrm",
+    "name": "ZohoCRM Portal",
+    "type": "CRM System",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "lead_id": "LEAD-898245",
+        "contact_name": "Arjun Mehta",
+        "email": "arjun.mehta@outlook.com",
+        "phone": "+919123456789",
+        "company": "Self-Employed",
+        "status": "qualified",
+        "estimated_value": "₹5,00,000"
+      }
+    }
+  },
+  {
+    "id": "freshsales",
+    "name": "FreshSales Suite",
+    "type": "CRM System",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "lead_id": "LEAD-480984",
+        "contact_name": "Arjun Mehta",
+        "email": "arjun.mehta@outlook.com",
+        "phone": "+919123456789",
+        "company": "Self-Employed",
+        "status": "qualified",
+        "estimated_value": "₹5,00,000"
+      },
+      "neha.kulkarni@yahoo.co.in": {
+        "lead_id": "LEAD-985101",
+        "contact_name": "Neha Kulkarni",
+        "email": "neha.kulkarni@yahoo.co.in",
+        "phone": "+918765432109",
+        "company": "Self-Employed",
+        "status": "qualified",
+        "estimated_value": "₹5,00,000"
+      },
+      "rahul.desai@protonmail.com": {
+        "lead_id": "LEAD-221259",
+        "contact_name": "Rahul Desai",
+        "email": "rahul.desai@protonmail.com",
+        "phone": "+917000011223",
+        "company": "Self-Employed",
+        "status": "qualified",
+        "estimated_value": "₹5,00,000"
+      },
+      "samiksha.yesade@gmail.com": {
+        "lead_id": "LEAD-723184",
+        "contact_name": "Samiksha Yesade",
+        "email": "samiksha.yesade@gmail.com",
+        "phone": "+919224051959",
+        "company": "Self-Employed",
+        "status": "qualified",
+        "estimated_value": "₹5,00,000"
+      }
+    }
+  },
+  {
+    "id": "mailchimp",
+    "name": "MailChimp Campaigns",
+    "type": "Marketing Platform",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "subscriber_id": "SUB-39261",
+        "email": "arjun.mehta@outlook.com",
+        "phone": "+919123456789",
+        "opt_in_date": "2025-01-15",
+        "lists": [
+          "Newsletter",
+          "Product Updates",
+          "DPDP Consent Alerts"
+        ],
+        "status": "active_subscriber"
+      },
+      "samiksha.yesade@gmail.com": {
+        "subscriber_id": "SUB-28169",
+        "email": "samiksha.yesade@gmail.com",
+        "phone": "+919224051959",
+        "opt_in_date": "2025-01-15",
+        "lists": [
+          "Newsletter",
+          "Product Updates",
+          "DPDP Consent Alerts"
+        ],
+        "status": "active_subscriber"
+      }
+    }
+  },
+  {
+    "id": "webengage",
+    "name": "WebEngage Push",
+    "type": "Marketing Platform",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "subscriber_id": "SUB-64249",
+        "email": "arjun.mehta@outlook.com",
+        "phone": "+919123456789",
+        "opt_in_date": "2025-01-15",
+        "lists": [
+          "Newsletter",
+          "Product Updates",
+          "DPDP Consent Alerts"
+        ],
+        "status": "active_subscriber"
+      },
+      "neha.kulkarni@yahoo.co.in": {
+        "subscriber_id": "SUB-64818",
+        "email": "neha.kulkarni@yahoo.co.in",
+        "phone": "+918765432109",
+        "opt_in_date": "2025-01-15",
+        "lists": [
+          "Newsletter",
+          "Product Updates",
+          "DPDP Consent Alerts"
+        ],
+        "status": "active_subscriber"
+      },
+      "rahul.desai@protonmail.com": {
+        "subscriber_id": "SUB-91344",
+        "email": "rahul.desai@protonmail.com",
+        "phone": "+917000011223",
+        "opt_in_date": "2025-01-15",
+        "lists": [
+          "Newsletter",
+          "Product Updates",
+          "DPDP Consent Alerts"
+        ],
+        "status": "active_subscriber"
+      },
+      "samiksha.yesade@gmail.com": {
+        "subscriber_id": "SUB-11735",
+        "email": "samiksha.yesade@gmail.com",
+        "phone": "+919224051959",
+        "opt_in_date": "2025-01-15",
+        "lists": [
+          "Newsletter",
+          "Product Updates",
+          "DPDP Consent Alerts"
+        ],
+        "status": "active_subscriber"
+      }
+    }
+  },
+  {
+    "id": "sendgrid",
+    "name": "SendGrid SMTP",
+    "type": "Marketing Platform",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "subscriber_id": "SUB-28138",
+        "email": "arjun.mehta@outlook.com",
+        "phone": "+919123456789",
+        "opt_in_date": "2025-01-15",
+        "lists": [
+          "Newsletter",
+          "Product Updates",
+          "DPDP Consent Alerts"
+        ],
+        "status": "active_subscriber"
+      },
+      "samiksha.yesade@gmail.com": {
+        "subscriber_id": "SUB-76206",
+        "email": "samiksha.yesade@gmail.com",
+        "phone": "+919224051959",
+        "opt_in_date": "2025-01-15",
+        "lists": [
+          "Newsletter",
+          "Product Updates",
+          "DPDP Consent Alerts"
+        ],
+        "status": "active_subscriber"
+      }
+    }
+  },
+  {
+    "id": "clevertap",
+    "name": "Clevertap Engage",
+    "type": "Marketing Platform",
+    "records": {
+      "neha.kulkarni@yahoo.co.in": {
+        "subscriber_id": "SUB-64372",
+        "email": "neha.kulkarni@yahoo.co.in",
+        "phone": "+918765432109",
+        "opt_in_date": "2025-01-15",
+        "lists": [
+          "Newsletter",
+          "Product Updates",
+          "DPDP Consent Alerts"
+        ],
+        "status": "active_subscriber"
+      },
+      "rahul.desai@protonmail.com": {
+        "subscriber_id": "SUB-95768",
+        "email": "rahul.desai@protonmail.com",
+        "phone": "+917000011223",
+        "opt_in_date": "2025-01-15",
+        "lists": [
+          "Newsletter",
+          "Product Updates",
+          "DPDP Consent Alerts"
+        ],
+        "status": "active_subscriber"
+      }
+    }
+  },
+  {
+    "id": "google-analytics",
+    "name": "Google Analytics 4",
+    "type": "Analytics Platform",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "visitor_id": "VISITOR-6832315",
+        "ip_address": "192.168.1.15",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "sessions_count": 24,
+        "last_active": "2026-06-09",
+        "events_logged": [
+          "page_view_home",
+          "dsar_form_start",
+          "dsar_submit"
+        ]
+      },
+      "samiksha.yesade@gmail.com": {
+        "visitor_id": "VISITOR-4683726",
+        "ip_address": "192.168.1.15",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "sessions_count": 18,
+        "last_active": "2026-06-09",
+        "events_logged": [
+          "page_view_home",
+          "dsar_form_start",
+          "dsar_submit"
         ]
       }
     }
   },
   {
-    "id": "peoplehr",
-    "name": "PeopleHR",
-    "type": "HR System",
+    "id": "mixpanel",
+    "name": "Mixpanel Events",
+    "type": "Analytics Platform",
     "records": {
+      "arjun.mehta@outlook.com": {
+        "visitor_id": "VISITOR-5522999",
+        "ip_address": "192.168.1.15",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "sessions_count": 13,
+        "last_active": "2026-06-09",
+        "events_logged": [
+          "page_view_home",
+          "dsar_form_start",
+          "dsar_submit"
+        ]
+      },
       "neha.kulkarni@yahoo.co.in": {
-        "employee_id": "EMP-MH-4491",
-        "full_name": "Neha Kulkarni",
-        "email": "neha.kulkarni@yahoo.co.in",
-        "phone": "+91 87654 32109",
-        "date_of_birth": "1992-06-18",
-        "date_of_joining": "2019-04-01",
-        "designation": "Senior Software Engineer",
-        "department": "Engineering",
-        "location": "Pune, Maharashtra",
-        "salary": "₹18,50,000 per annum",
-        "pan_number": "ABCPK1234F",
-        "aadhar_masked": "XXXX-XXXX-6712",
-        "employment_status": "Active",
-        "manager": "Rohan Joshi"
+        "visitor_id": "VISITOR-7561703",
+        "ip_address": "192.168.1.15",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "sessions_count": 5,
+        "last_active": "2026-06-09",
+        "events_logged": [
+          "page_view_home",
+          "dsar_form_start",
+          "dsar_submit"
+        ]
       },
       "rahul.desai@protonmail.com": {
-        "employee_id": "EMP-MH-5812",
-        "full_name": "Rahul Desai",
-        "email": "rahul.desai@protonmail.com",
-        "phone": "+91 70000 11223",
-        "date_of_birth": "1988-11-25",
-        "date_of_joining": "2021-07-15",
-        "designation": "Product Manager",
-        "department": "Product",
-        "location": "Nagpur, Maharashtra",
-        "salary": "₹24,00,000 per annum",
-        "pan_number": "EFGRD5678H",
-        "aadhar_masked": "XXXX-XXXX-3301",
-        "employment_status": "Active",
-        "manager": "Anjali Nair"
+        "visitor_id": "VISITOR-6402724",
+        "ip_address": "192.168.1.15",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "sessions_count": 17,
+        "last_active": "2026-06-09",
+        "events_logged": [
+          "page_view_home",
+          "dsar_form_start",
+          "dsar_submit"
+        ]
       },
-      "suresh.joshi@rediffmail.com": {
-        "employee_id": "EMP-MH-3307",
-        "full_name": "Suresh Joshi",
-        "email": "suresh.joshi@rediffmail.com",
-        "phone": "+91 82345 67890",
-        "date_of_birth": "1985-03-12",
-        "date_of_joining": "2017-01-10",
-        "designation": "Finance Manager",
-        "department": "Finance",
-        "location": "Thane, Maharashtra",
-        "salary": "₹22,00,000 per annum",
-        "pan_number": "HIJSJ9012K",
-        "aadhar_masked": "XXXX-XXXX-8844",
-        "employment_status": "Active",
-        "manager": "Priya Kapoor"
-      },
+      "samiksha.yesade@gmail.com": {
+        "visitor_id": "VISITOR-1472204",
+        "ip_address": "192.168.1.15",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "sessions_count": 22,
+        "last_active": "2026-06-09",
+        "events_logged": [
+          "page_view_home",
+          "dsar_form_start",
+          "dsar_submit"
+        ]
+      }
+    }
+  },
+  {
+    "id": "hotjar",
+    "name": "Hotjar Session Recorder",
+    "type": "Analytics Platform",
+    "records": {
       "arjun.mehta@outlook.com": {
-        "employee_id": "EMP-MH-6120",
-        "full_name": "Arjun Mehta",
-        "email": "arjun.mehta@outlook.com",
-        "phone": "+91 91234 56789",
-        "date_of_birth": "1991-09-05",
-        "date_of_joining": "2020-03-01",
-        "designation": "Sales Manager",
-        "department": "Sales",
-        "location": "Mumbai, Maharashtra",
-        "salary": "₹20,50,000 per annum",
-        "pan_number": "KLMAM3456L",
-        "aadhar_masked": "XXXX-XXXX-2255",
-        "employment_status": "Active",
-        "manager": "Deepak Sharma"
-      }
-    }
-  },
-  {
-    "id": "targetpulse",
-    "name": "TargetPulse",
-    "type": "Marketing Platform",
-    "records": {
-      "kavi26@gmail.com": {
-        "contact_id": "TP-C-77603",
-        "full_name": "kavi",
-        "email": "kavi26@gmail.com",
-        "phone": "+91 93456 78901",
-        "segments": [
-          "Women 35-50",
-          "Health & Wellness"
-        ],
-        "email_consent": false,
-        "sms_consent": true,
-        "whatsapp_consent": true,
-        "last_campaign_opened": null,
-        "open_rate": "12%",
-        "click_rate": "3%",
-        "unsubscribed": true,
-        "city": "Nashik",
-        "language": "Hindi"
-      }
-    }
-  },
-  {
-    "id": "quickdeliver",
-    "name": "QuickDeliver",
-    "type": "Delivery Partner",
-    "records": {
-      "neha.kulkarni@yahoo.co.in": {
-        "customer_id": "QD-PUN-7891",
-        "full_name": "Neha Kulkarni",
-        "phone": "+91 87654 32109",
-        "saved_addresses": [
-          {
-            "label": "Home",
-            "address": "Flat 8, Greenwood Society, Nashik Road, Nashik, Maharashtra 422101"
-          }
-        ],
-        "total_deliveries": 23,
-        "last_delivery": {
-          "order_id": "QD-ORD-20240308",
-          "from": "FreshMart Superstore, Nashik",
-          "to": "Flat 8, Greenwood Society, Nashik",
-          "date": "2024-03-08",
-          "status": "Delivered",
-          "amount_paid": "₹1,150"
-        },
-        "preferred_payment": "Credit Card",
-        "member_since": "2022-05-14"
+        "visitor_id": "VISITOR-9981458",
+        "ip_address": "192.168.1.15",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "sessions_count": 19,
+        "last_active": "2026-06-09",
+        "events_logged": [
+          "page_view_home",
+          "dsar_form_start",
+          "dsar_submit"
+        ]
       },
-      "suresh.joshi@rediffmail.com": {
-        "customer_id": "QD-THA-4422",
-        "full_name": "Suresh Joshi",
-        "phone": "+91 82345 67890",
-        "saved_addresses": [
-          {
-            "label": "Home",
-            "address": "C-4, Shanti CHS, Ghodbunder Road, Thane West, Maharashtra 400615"
-          }
-        ],
-        "total_deliveries": 11,
-        "last_delivery": {
-          "order_id": "QD-ORD-20240110",
-          "from": "Domino's, Thane",
-          "to": "C-4, Shanti CHS, Thane",
-          "date": "2024-01-10",
-          "status": "Delivered",
-          "amount_paid": "₹540"
-        },
-        "preferred_payment": "Cash on Delivery",
-        "member_since": "2023-01-20"
+      "samiksha.yesade@gmail.com": {
+        "visitor_id": "VISITOR-5263805",
+        "ip_address": "192.168.1.15",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "sessions_count": 13,
+        "last_active": "2026-06-09",
+        "events_logged": [
+          "page_view_home",
+          "dsar_form_start",
+          "dsar_submit"
+        ]
       }
     }
   },
   {
-    "id": "insightmetrics",
-    "name": "InsightMetrics",
-    "type": "Analytics Tool",
+    "id": "delhivery-express",
+    "name": "Delhivery Express",
+    "type": "Delivery Service",
     "records": {
-      "kavi26@gmail.com": {
-        "user_id": "IM-U-91D2C3",
-        "email": "kavi26@gmail.com",
-        "first_seen": "2023-09-01",
-        "last_seen": "2024-02-18",
-        "total_sessions": 44,
-        "avg_session_duration": "3m 02s",
-        "most_visited_pages": [
-          "/health",
-          "/orders"
-        ],
-        "device": "Redmi Note 12, Android 12",
-        "browser": "Chrome 120",
-        "ip_country": "India",
-        "ip_city": "Nashik",
-        "events": [
+      "arjun.mehta@outlook.com": {
+        "customer_id": "SHIP-425271",
+        "full_name": "Arjun Mehta",
+        "phone": "+919123456789",
+        "delivery_address": "Mumbai, Maharashtra",
+        "recent_orders": [
           {
-            "event": "purchase_completed",
-            "count": 3
-          },
-          {
-            "event": "product_view",
-            "count": 89
+            "tracking_id": "AWB-9292562833",
+            "contents": "Electronics",
+            "status": "Delivered",
+            "date": "2026-06-04"
           }
-        ],
-        "full_name": "kavi"
+        ]
+      },
+      "neha.kulkarni@yahoo.co.in": {
+        "customer_id": "SHIP-382392",
+        "full_name": "Neha Kulkarni",
+        "phone": "+918765432109",
+        "delivery_address": "Pune, Maharashtra",
+        "recent_orders": [
+          {
+            "tracking_id": "AWB-2854474547",
+            "contents": "Electronics",
+            "status": "Delivered",
+            "date": "2026-06-04"
+          }
+        ]
+      },
+      "rahul.desai@protonmail.com": {
+        "customer_id": "SHIP-423588",
+        "full_name": "Rahul Desai",
+        "phone": "+917000011223",
+        "delivery_address": "Nagpur, Maharashtra",
+        "recent_orders": [
+          {
+            "tracking_id": "AWB-7064207186",
+            "contents": "Electronics",
+            "status": "Delivered",
+            "date": "2026-06-04"
+          }
+        ]
+      },
+      "samiksha.yesade@gmail.com": {
+        "customer_id": "SHIP-411873",
+        "full_name": "Samiksha Yesade",
+        "phone": "+919224051959",
+        "delivery_address": "Thane, Maharashtra",
+        "recent_orders": [
+          {
+            "tracking_id": "AWB-5538285272",
+            "contents": "Electronics",
+            "status": "Delivered",
+            "date": "2026-06-04"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "swiggy-genie",
+    "name": "Swiggy Genie Logistics",
+    "type": "Delivery Service",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "customer_id": "SHIP-958661",
+        "full_name": "Arjun Mehta",
+        "phone": "+919123456789",
+        "delivery_address": "Mumbai, Maharashtra",
+        "recent_orders": [
+          {
+            "tracking_id": "AWB-9713967633",
+            "contents": "Electronics",
+            "status": "Delivered",
+            "date": "2026-06-04"
+          }
+        ]
+      },
+      "samiksha.yesade@gmail.com": {
+        "customer_id": "SHIP-970981",
+        "full_name": "Samiksha Yesade",
+        "phone": "+919224051959",
+        "delivery_address": "Thane, Maharashtra",
+        "recent_orders": [
+          {
+            "tracking_id": "AWB-5199142478",
+            "contents": "Electronics",
+            "status": "Delivered",
+            "date": "2026-06-04"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dunzo",
+    "name": "Dunzo Delivery",
+    "type": "Delivery Service",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "customer_id": "SHIP-641421",
+        "full_name": "Arjun Mehta",
+        "phone": "+919123456789",
+        "delivery_address": "Mumbai, Maharashtra",
+        "recent_orders": [
+          {
+            "tracking_id": "AWB-4859162870",
+            "contents": "Electronics",
+            "status": "Delivered",
+            "date": "2026-06-04"
+          }
+        ]
+      },
+      "neha.kulkarni@yahoo.co.in": {
+        "customer_id": "SHIP-298343",
+        "full_name": "Neha Kulkarni",
+        "phone": "+918765432109",
+        "delivery_address": "Pune, Maharashtra",
+        "recent_orders": [
+          {
+            "tracking_id": "AWB-9598108132",
+            "contents": "Electronics",
+            "status": "Delivered",
+            "date": "2026-06-04"
+          }
+        ]
+      },
+      "rahul.desai@protonmail.com": {
+        "customer_id": "SHIP-258750",
+        "full_name": "Rahul Desai",
+        "phone": "+917000011223",
+        "delivery_address": "Nagpur, Maharashtra",
+        "recent_orders": [
+          {
+            "tracking_id": "AWB-2766308579",
+            "contents": "Electronics",
+            "status": "Delivered",
+            "date": "2026-06-04"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "bluedart",
+    "name": "BlueDart Aviation",
+    "type": "Delivery Service",
+    "records": {}
+  },
+  {
+    "id": "flipkart-marketplace",
+    "name": "Flipkart Seller Platform",
+    "type": "E-commerce Service",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "buyer_id": "BUY-70114",
+        "buyer_name": "Arjun Mehta",
+        "email": "arjun.mehta@outlook.com",
+        "billing_address": "Mumbai, Maharashtra",
+        "loyalty_points": 274,
+        "payment_methods": [
+          "UPI",
+          "Credit Card"
+        ]
+      },
+      "neha.kulkarni@yahoo.co.in": {
+        "buyer_id": "BUY-98183",
+        "buyer_name": "Neha Kulkarni",
+        "email": "neha.kulkarni@yahoo.co.in",
+        "billing_address": "Pune, Maharashtra",
+        "loyalty_points": 125,
+        "payment_methods": [
+          "UPI",
+          "Credit Card"
+        ]
+      },
+      "rahul.desai@protonmail.com": {
+        "buyer_id": "BUY-55667",
+        "buyer_name": "Rahul Desai",
+        "email": "rahul.desai@protonmail.com",
+        "billing_address": "Nagpur, Maharashtra",
+        "loyalty_points": 911,
+        "payment_methods": [
+          "UPI",
+          "Credit Card"
+        ]
+      },
+      "samiksha.yesade@gmail.com": {
+        "buyer_id": "BUY-24980",
+        "buyer_name": "Samiksha Yesade",
+        "email": "samiksha.yesade@gmail.com",
+        "billing_address": "Thane, Maharashtra",
+        "loyalty_points": 606,
+        "payment_methods": [
+          "UPI",
+          "Credit Card"
+        ]
+      }
+    }
+  },
+  {
+    "id": "amazon-merchant",
+    "name": "Amazon India Merchant",
+    "type": "E-commerce Service",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "buyer_id": "BUY-30557",
+        "buyer_name": "Arjun Mehta",
+        "email": "arjun.mehta@outlook.com",
+        "billing_address": "Mumbai, Maharashtra",
+        "loyalty_points": 611,
+        "payment_methods": [
+          "UPI",
+          "Credit Card"
+        ]
+      },
+      "samiksha.yesade@gmail.com": {
+        "buyer_id": "BUY-75843",
+        "buyer_name": "Samiksha Yesade",
+        "email": "samiksha.yesade@gmail.com",
+        "billing_address": "Thane, Maharashtra",
+        "loyalty_points": 478,
+        "payment_methods": [
+          "UPI",
+          "Credit Card"
+        ]
+      }
+    }
+  },
+  {
+    "id": "shopify-india",
+    "name": "Shopify India Engine",
+    "type": "E-commerce Service",
+    "records": {
+      "arjun.mehta@outlook.com": {
+        "buyer_id": "BUY-42063",
+        "buyer_name": "Arjun Mehta",
+        "email": "arjun.mehta@outlook.com",
+        "billing_address": "Mumbai, Maharashtra",
+        "loyalty_points": 855,
+        "payment_methods": [
+          "UPI",
+          "Credit Card"
+        ]
+      },
+      "neha.kulkarni@yahoo.co.in": {
+        "buyer_id": "BUY-38698",
+        "buyer_name": "Neha Kulkarni",
+        "email": "neha.kulkarni@yahoo.co.in",
+        "billing_address": "Pune, Maharashtra",
+        "loyalty_points": 1037,
+        "payment_methods": [
+          "UPI",
+          "Credit Card"
+        ]
+      },
+      "rahul.desai@protonmail.com": {
+        "buyer_id": "BUY-99046",
+        "buyer_name": "Rahul Desai",
+        "email": "rahul.desai@protonmail.com",
+        "billing_address": "Nagpur, Maharashtra",
+        "loyalty_points": 140,
+        "payment_methods": [
+          "UPI",
+          "Credit Card"
+        ]
+      },
+      "samiksha.yesade@gmail.com": {
+        "buyer_id": "BUY-83688",
+        "buyer_name": "Samiksha Yesade",
+        "email": "samiksha.yesade@gmail.com",
+        "billing_address": "Thane, Maharashtra",
+        "loyalty_points": 664,
+        "payment_methods": [
+          "UPI",
+          "Credit Card"
+        ]
       }
     }
   }

@@ -1,19 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --primary: oklch(0.145 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.145 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.145 0 0);
+}
+
+.dark {
+  --background: oklch(0.15 0.01 240);
+  --foreground: oklch(0.98 0.005 240);
+  --primary: oklch(0.98 0.005 240);
+  --primary-foreground: oklch(0.15 0.01 240);
+  --secondary: oklch(0.2 0.01 240);
+  --secondary-foreground: oklch(0.98 0.005 240);
+  --muted: oklch(0.2 0.01 240);
+  --muted-foreground: oklch(0.65 0.01 240);
+  --border: oklch(0.25 0.01 240);
+  --input: oklch(0.25 0.01 240);
+  --ring: oklch(0.98 0.005 240);
+}
+
 @theme inline {
   --font-sans: 'Inter', sans-serif;
-  --color-background: oklch(1 0 0);
-  --color-foreground: oklch(0.145 0 0);
-  --color-primary: oklch(0.145 0 0);
-  --color-primary-foreground: oklch(1 0 0);
-  --color-secondary: oklch(0.97 0 0);
-  --color-secondary-foreground: oklch(0.145 0 0);
-  --color-muted: oklch(0.97 0 0);
-  --color-muted-foreground: oklch(0.556 0 0);
-  --color-border: oklch(0.922 0 0);
-  --color-input: oklch(0.922 0 0);
-  --color-ring: oklch(0.145 0 0);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --color-destructive: oklch(0.577 0.245 27.325);
   --color-destructive-foreground: oklch(1 0 0);
   --radius: 0.25rem;
@@ -26,21 +56,21 @@
 
 @layer utilities {
   .card-gradient {
-    background: linear-gradient(to bottom right, rgb(255 255 255), rgb(249 250 251));
+    background: linear-gradient(to bottom right, var(--background), var(--secondary));
   }
   .stats-card-hover {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .stats-card-hover:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.15);
   }
   .input-focus-glow {
     transition: all 0.2s ease;
   }
   .input-focus-glow:focus {
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
-    border-color: oklch(0.145 0 0);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+    border-color: var(--primary);
   }
   .field-group {
     position: relative;
@@ -50,7 +80,7 @@
   .field-group textarea:not(:placeholder-shown) + label,
   .field-group textarea:focus + label {
     transform: translateY(-1px);
-    color: oklch(0.145 0 0);
+    color: var(--primary);
   }
   .field-group label {
     transition: transform 0.15s ease, color 0.15s ease;
@@ -58,21 +88,21 @@
   }
   .request-type-card {
     cursor: pointer;
-    border: 2px solid oklch(0.922 0 0);
+    border: 2px solid var(--border);
     border-radius: 0.75rem;
     padding: 1rem;
     transition: all 0.2s ease;
-    background: white;
+    background: var(--background);
   }
   .request-type-card:hover {
-    border-color: oklch(0.4 0 0);
-    box-shadow: 0 4px 12px -4px rgba(0,0,0,0.1);
+    border-color: var(--muted-foreground);
+    box-shadow: 0 4px 12px -4px rgba(0,0,0,0.15);
     transform: translateY(-1px);
   }
   .request-type-card.selected {
-    border-color: oklch(0.145 0 0);
-    background: oklch(0.97 0 0);
-    box-shadow: 0 4px 16px -4px rgba(0,0,0,0.12);
+    border-color: var(--primary);
+    background: var(--secondary);
+    box-shadow: 0 4px 16px -4px rgba(0,0,0,0.2);
   }
   .status-timeline-step {
     position: relative;
@@ -84,20 +114,20 @@
     top: 2.5rem;
     width: 2px;
     height: calc(100% - 1rem);
-    background: oklch(0.922 0 0);
+    background: var(--border);
   }
   .status-timeline-step.completed:not(:last-child)::after {
-    background: oklch(0.145 0 0);
+    background: var(--primary);
   }
   .info-card {
-    background: oklch(0.98 0 0);
-    border: 1px solid oklch(0.922 0 0);
+    background: var(--secondary);
+    border: 1px solid var(--border);
     border-radius: 0.625rem;
     padding: 0.875rem 1rem;
     transition: box-shadow 0.2s ease;
   }
   .info-card:hover {
-    box-shadow: 0 2px 8px -2px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px -2px rgba(0,0,0,0.12);
   }
   @keyframes status-pulse {
     0%, 100% { opacity: 1; }
@@ -110,7 +140,7 @@
     transition: all 0.15s ease;
   }
   .table-row-hover:hover {
-    background: rgb(249 250 251);
-    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.08);
+    background: var(--secondary);
+    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.1);
   }
 }

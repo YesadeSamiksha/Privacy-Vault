@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
-import { readFileSync, writeFileSync } from "fs";
+import { writeFileSync } from "fs";
 import { join } from "path";
+import { loadProcessors, findProcessorRecord } from "@/lib/processors";
 import { generateAndSaveStatusNote } from "@/lib/status-note";
 
 export async function POST(
@@ -26,10 +27,10 @@ export async function POST(
       return NextResponse.json({ message: "No processor IDs provided" }, { status: 400 });
     }
 
-    // Get user email for this request
+    // Get user email & phone for this request
     const { data: reqData } = await supabase
       .from("dsar_requests")
-      .select("user_email")
+      .select("user_email, user_phone")
       .eq("id", id)
       .single();
 
@@ -38,10 +39,8 @@ export async function POST(
     }
 
     const userEmail = reqData.user_email as string;
-    const filePath = join(process.cwd(), "data", "processors.json");
-    const processors: Array<{ id: string; name: string; type: string; records: Record<string, unknown> }> =
-      JSON.parse(readFileSync(filePath, "utf-8"));
-
+    const userPhone = reqData.user_phone as string | null | undefined;
+    const processors = loadProcessors();
     const toModifySet = new Set(processorIds);
 
     // Log the modification FIRST to prevent out-of-sync state if DB is missing
@@ -61,43 +60,33 @@ export async function POST(
     // Actually apply corrections to the user's record in each selected processor
     for (const processor of processors) {
       if (toModifySet.has(processor.id)) {
-        let recordKey = userEmail;
-        let found = userEmail in processor.records;
+        const match = findProcessorRecord(processor, userEmail, userPhone);
 
-        // Fallback: search by 'email' field inside the record if key not found
-        if (!found) {
-          for (const [key, value] of Object.entries(processor.records)) {
-            if (value && typeof value === "object" && (value as any).email === userEmail) {
-              found = true;
-              recordKey = key;
-              break;
-            }
-          }
-        }
-
-        if (found) {
+        if (match.found && match.key) {
           const fields = corrections[processor.id];
           if (fields && typeof fields === "object") {
-            processor.records[recordKey] = {
-              ...(processor.records[recordKey] as Record<string, unknown>),
+            const oldRecord = processor.records[match.key] as Record<string, unknown>;
+            processor.records[match.key] = {
+              ...oldRecord,
               ...fields,
             };
 
-            // If the email was changed, update the primary key to the new email
-            if (fields.email && typeof fields.email === "string" && fields.email !== recordKey) {
-              processor.records[fields.email] = processor.records[recordKey];
-              delete processor.records[recordKey];
+            // If the email was changed and the key is that email, update the primary key to the new email
+            if (fields.email && typeof fields.email === "string" && fields.email !== match.key && match.key === userEmail) {
+              processor.records[fields.email] = processor.records[match.key];
+              delete processor.records[match.key];
             }
           }
         }
       }
     }
 
+    const filePath = join(process.cwd(), "data", "processors.json");
     writeFileSync(filePath, JSON.stringify(processors, null, 2), "utf-8");
 
     // Update status based on progress
     try {
-      const applicableCount = processors.filter((p) => userEmail in p.records).length;
+      const applicableCount = processors.filter((p) => findProcessorRecord(p, userEmail, userPhone).found).length;
       const { data: logs } = await supabase
         .from("processor_modification_log")
         .select("processor")

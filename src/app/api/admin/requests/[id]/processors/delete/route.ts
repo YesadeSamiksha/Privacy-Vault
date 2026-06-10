@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
-import { readFileSync, writeFileSync } from "fs";
+import { writeFileSync } from "fs";
 import { join } from "path";
+import { loadProcessors, findProcessorRecord } from "@/lib/processors";
 import { generateAndSaveStatusNote } from "@/lib/status-note";
 
 export async function POST(
@@ -24,10 +25,10 @@ export async function POST(
       return NextResponse.json({ message: "No processor IDs provided" }, { status: 400 });
     }
 
-    // Get user email for this request
+    // Get user email & phone for this request
     const { data: reqData } = await supabase
       .from("dsar_requests")
-      .select("user_email")
+      .select("user_email, user_phone")
       .eq("id", id)
       .single();
 
@@ -36,10 +37,8 @@ export async function POST(
     }
 
     const userEmail = reqData.user_email as string;
-    const filePath = join(process.cwd(), "data", "processors.json");
-    const processors: Array<{ id: string; name: string; type: string; records: Record<string, unknown> }> =
-      JSON.parse(readFileSync(filePath, "utf-8"));
-
+    const userPhone = reqData.user_phone as string | null | undefined;
+    const processors = loadProcessors();
     const toDeleteSet = new Set(processorIds);
 
     // Log the deletion FIRST to prevent out-of-sync state if DB is missing
@@ -59,25 +58,19 @@ export async function POST(
     // Actually delete the user's record from each selected processor
     for (const processor of processors) {
       if (toDeleteSet.has(processor.id)) {
-        if (userEmail in processor.records) {
-          delete processor.records[userEmail];
-        } else {
-          // Fallback search
-          for (const [key, value] of Object.entries(processor.records)) {
-            if (value && typeof value === "object" && (value as any).email === userEmail) {
-              delete processor.records[key];
-              break;
-            }
-          }
+        const match = findProcessorRecord(processor, userEmail, userPhone);
+        if (match.found && match.key) {
+          delete processor.records[match.key];
         }
       }
     }
 
+    const filePath = join(process.cwd(), "data", "processors.json");
     writeFileSync(filePath, JSON.stringify(processors, null, 2), "utf-8");
 
     // Update status based on progress
     try {
-      const remainingCount = processors.filter((p) => userEmail in p.records).length;
+      const remainingCount = processors.filter((p) => findProcessorRecord(p, userEmail, userPhone).found).length;
       const { data: logs } = await supabase
         .from("processor_deletion_log")
         .select("processor")

@@ -33,6 +33,13 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ tok
       phoneVerified: data.phone_verified ?? false,
       userPhone: data.user_phone ?? null,
       adminNote: data.admin_note ?? null,
+      exposureScore: data.exposure_score ?? 0,
+      riskScore: data.risk_score ?? "Low",
+      dataCategories: data.data_categories ?? [],
+      complianceInsights: data.compliance_insights ?? null,
+      dpdpRecommendations: data.dpdp_recommendations ?? null,
+      processorSummary: data.processor_summary ?? [],
+      aiSummary: data.ai_summary ?? null,
     });
   } catch (err) {
     console.error("Track DSAR error:", err);

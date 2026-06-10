@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
-import { readFileSync } from "fs";
-import { join } from "path";
+import { loadProcessors, findProcessorRecord } from "@/lib/processors";
 import { generateAndSaveStatusNote } from "@/lib/status-note";
 
 export async function GET(
@@ -19,23 +18,17 @@ export async function GET(
     const { id } = await params;
     const { data: req, error } = await supabase
       .from("dsar_requests")
-      .select("request_type, user_email, status")
+      .select("request_type, user_email, user_phone, status")
       .eq("id", id)
       .single();
 
     if (error || !req)
       return NextResponse.json({ message: "Request not found" }, { status: 404 });
 
-    const filePath = join(process.cwd(), "data", "processors.json");
-    const raw = readFileSync(filePath, "utf-8");
-    const processors: Array<{
-      id: string;
-      name: string;
-      type: string;
-      records: Record<string, unknown>;
-    }> = JSON.parse(raw);
+    const processors = loadProcessors();
 
     const citizenEmail = req.user_email as string;
+    const citizenPhone = req.user_phone as string | null | undefined;
     const requestType = req.request_type as string;
 
     const actionedSet = new Set<string>();
@@ -55,29 +48,17 @@ export async function GET(
     }
 
     const results = processors.map((processor) => {
-      let found = citizenEmail in processor.records;
-      let recordKey = citizenEmail;
-
-      if (!found) {
-        for (const [key, value] of Object.entries(processor.records)) {
-          if (value && typeof value === 'object' && (value as any).email === citizenEmail) {
-            found = true;
-            recordKey = key;
-            break;
-          }
-        }
-      }
-
+      const match = findProcessorRecord(processor, citizenEmail, citizenPhone);
       const isActioned = actionedSet.has(processor.id);
       
       return {
         processorId: processor.id,
         processorName: processor.name,
         type: processor.type,
-        found,
+        found: match.found,
         deleted: (requestType === "erasure" && isActioned),
-        modified: (requestType === "modify" && isActioned),
-        data: found ? processor.records[recordKey] : null,
+        modified: (requestType === "correction" && isActioned),
+        data: match.data,
       };
     });
 

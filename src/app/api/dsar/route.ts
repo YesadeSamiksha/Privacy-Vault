@@ -74,12 +74,20 @@ export async function POST(req: NextRequest) {
   }
 }
 
+const patchSchema = z.object({
+  id: z.string().uuid(),
+  requestType: z.enum(["access", "correction", "erasure"]),
+  requestDetails: z.string().optional(),
+});
+
 export async function PATCH(req: NextRequest) {
   try {
-    const { id, requestType, requestDetails } = await req.json();
-    if (!id || !requestType) {
-      return NextResponse.json({ message: "Missing id or requestType" }, { status: 400 });
+    const body = patchSchema.safeParse(await req.json());
+    if (!body.success) {
+      return NextResponse.json({ message: "Invalid request data" }, { status: 400 });
     }
+
+    const { id, requestType, requestDetails } = body.data;
     const supabase = await createClient();
     const { error } = await supabase
       .from("dsar_requests")
