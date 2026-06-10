@@ -45,6 +45,9 @@ export async function POST(req: NextRequest) {
 
     if (error) throw error;
 
+    const origin = process.env.NEXT_PUBLIC_APP_URL || req.nextUrl.origin;
+    const verificationUrl = `${origin}/verify-email?token=${emailToken}`;
+
     // Send real email via Resend
     await resend.emails.send({
       from: "PrivacyVault <onboarding@resend.dev>",
@@ -57,7 +60,7 @@ export async function POST(req: NextRequest) {
           <p style="color: #475569; line-height: 1.6;">We received a Data Subject Access Request (DSAR) under the DPDP Act 2023 associated with this email address.</p>
           <p style="color: #475569; line-height: 1.6; margin-bottom: 30px;">To verify your identity and submit the request, please click the button below:</p>
           <div style="text-align: center; margin: 30px 0;">
-            <a href="http://localhost:3000/verify-email?token=${emailToken}" 
+            <a href="${verificationUrl}" 
                style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; display: inline-block;">
                Verify Email Address
             </a>
